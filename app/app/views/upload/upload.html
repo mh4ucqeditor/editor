@@ -1,0 +1,117 @@
+<div ng-controller="UploadController">
+<input id="httprlsDialog" style="display:none" type="file" nwsaveas="skfu.httprls" />
+
+<div id="puush_login" class="ui small modal">
+  <div class="header">{{_('PUUSH_LOGIN')}}</div>
+  <div class="content">
+    <form class="ui form" name="loginform">
+      <div class="two fields">
+        <div class="field" ng-class="{'error': loginform.email.$invalid}">
+          <label>{{_('EMAIL')}}</label>
+          <input name="email" ng-model="email" type="text" placeholder="Email" required>
+        </div>
+        <div class="field" ng-class="{'error': loginform.password.$invalid}">
+          <label>{{_('PASSWORD')}}</label>
+          <input name="password" ng-model="password" type="password" placeholder="Password" required>
+        </div>
+      </div>
+      <div class="ui negative message" ng-show="login_err">
+        <div class="header">
+          Error
+        </div>
+        <p>{{_('INVALID_LOGIN')}}</p>
+      </div>
+    </form>
+  </div>
+  <div class="actions">
+    <div class="ui cancel button">{{_('CANCEL')}}</div>
+    <div class="ui blue button" ng-class="{'disabled': loginform.$invalid, 'loading': login_loading}" ng-click="puushLogin()">{{_('LOGIN')}}</div>
+  </div>
+</div>
+
+<div id="puush_upload" class="ui small modal">
+  <div class="header">{{_('PUUSH_UPLOAD')}}</div>
+  <div class="content">
+    <div ng-show="!uploading">
+      <form class="ui form">
+        <div class="two fields">
+          <div class="field" ng-class="{'error': !upload_region}">
+            <label>{{_('REGION')}}</label>
+            <div class="ui scrolling selection dropdown">
+            <input type="hidden" value="none">
+            <div class="text">US</div>
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <div class="active item" ng-click="select_upload_region('us')">US</div>
+                <div class="item" ng-click="select_upload_region('eu')">EU</div>
+              </div>
+            </div>
+          </div>
+          <div class="field" ng-class="{'error': !upload_lang}">
+            <label>{{_('LANGUAGE')}}</label>
+            <div class="ui scrolling selection dropdown">
+            <input type="hidden" value="none">
+            <div class="text">ENG</div>
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <div class="active item" ng-click="select_upload_lang('eng')">English</div>
+                <div class="item" ng-click="select_upload_lang('fre')">French</div>
+                <div class="item" ng-click="select_upload_lang('spa')">Spanish</div>
+                <div class="item" ng-click="select_upload_lang('ger')">German</div>
+                <div class="item" ng-click="select_upload_lang('ita')">Italian</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p>{{_('UPLOAD_MSG')}}</p>
+      </div>
+
+      <div ng-show="uploading">
+        <div class="ui indicating progress" id="uploadprogress" data-percent="1">
+          <div class="bar" style="transition-duration: 300ms; width: 1%;">
+            <div class="progress">{{(done / total) * 100}}%</div>
+          </div>
+          <div class="label">{{_('UPLOADING')}} {{done}} / {{total}} {{_('FILES')}}</div>
+        </div>
+        <div class="ui negative message" ng-show="upload_err">
+          <div class="header">
+            Error
+          </div>
+          <p>{{_('UPLOAD_ERROR')}}</p>
+        </div>
+      </div>
+
+      <div ng-show="upload_done" style="-webkit-user-select: text;">
+        <table class="ui very basic collapsing celled table">
+          <thead>
+            <tr>
+              <th>{{_('FILE')}}</th>
+              <th>{{_('URL')}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="file in results">
+              <td>{{file.name}}</td>
+              <td>{{file.url}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </form>
+  </div>
+  <div class="actions" ng-if="!uploading">
+    <div class="ui button" ng-click="closeUpload()">{{_('CANCEL')}}</div>
+    <div class="ui blue button" ng-class="{'disabled': !upload_region || !upload_lang}" ng-click="puushUpload()">{{_('UPLOAD')}}</div>
+  </div>
+  <div class="actions" ng-if="upload_err">
+    <div class="ui button" ng-click="closeUpload()">{{_('CANCEL')}}</div>
+  </div>
+  <div class="actions" ng-if="upload_done">
+    <div class="ui blue button" ng-click="saveRules()">{{_('SAVE_RULES')}}</div>
+    <div class="ui blue button" ng-click="closeUpload()">{{_('OK')}}</div>
+  </div>
+</div>
+
+
+</div>

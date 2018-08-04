@@ -1,0 +1,30 @@
+<div class="ui error message" ng-if="config.userSettings.get('intruder_nag')">
+  <i ng-click="config.userSettings.set('intruder_nag', false);" class="close icon"></i>
+  <div class="header">
+    {{_('IMPORTANT')}}
+  </div>
+  <p>{{_('INTRUDER_NAG1')}}<br>
+    {{_('INTRUDER_NAG2')}}<br>
+    {{_('INTRUDER_NAG3')}}<br>
+    {{_('INTRUDER_NAG4')}}<br>
+  </p>
+</div>
+
+
+<div class="ui small top attached tabular menu">
+  <a class="active item" data-tab="large_monster">{{_('LARGE_MONSTERS')}}</a>
+  <a class="item" data-tab="unstable_monster">{{_('UNSTABLE_MONSTERS')}}</a>
+  <a class="item" data-tab="small_monster">{{_('SMALL_MONSTERS')}}</a>
+</div>
+
+<div class="ui bottom attached active tab segment" data-tab="large_monster">
+  <div ng-include="'app/views/editor/large_monster.html'"></div>
+</div>
+
+<div class="ui bottom attached tab segment" data-tab="small_monster">
+  <div ng-include="'app/views/editor/small_monster.html'"></div>
+</div>
+
+<div class="ui bottom attached tab segment" data-tab="unstable_monster">
+  <div ng-include="'app/views/editor/unstable_monster.html'"></div>
+</div>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MH4U Quest Editor by dasding</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bower_components/semantic-ui/dist/semantic.min.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/sprites.css">
+  <link rel="stylesheet" href="css/areas.css">
+  <link rel="stylesheet" href="css/palico.css">
+
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/semantic-ui/dist/semantic.min.js"></script>
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-route/angular-route.min.js"></script>
+
+  <script src="app/locales/en.js"></script>
+  <script src="app/locales/fr.js"></script>
+  <script src="app/locales/es.js"></script>
+  <script src="app/locales/de.js"></script>
+  <script src="app/locales/it.js"></script>
+  <script src="app/locales/cn.js"></script>
+
+  <script src="app/app.js"></script>
+  <script src="app/utils/config.js"></script>
+  <script src="app/utils/update.js"></script>
+  <script src="app/utils/analytics.js"></script>
+  <script src="app/utils/menu.js"></script>
+  <script src="app/utils/constants.js"></script>
+  <script src="app/utils/fix.js"></script>
+  <script src="app/utils/filter.js"></script>
+  <script src="app/utils/i18n.js"></script>
+  <script src="app/utils/proxy.js"></script>
+  <script src="app/utils/mib.js"></script>
+  <script src="app/utils/otb.js"></script>
+  <script src="app/utils/library.js"></script>
+  <script src="app/utils/eastereggs.js"></script>
+
+  <script src="app/views/library/library.js"></script>
+  <script src="app/views/editor/editor.js"></script>
+  <script src="app/views/palico_editor/editor.js"></script>
+  <script src="app/views/settings/settings.js"></script>
+  <script src="app/views/upload/upload.js"></script>
+</head>
+
+<body ng-app="editor" ng-cloak>
+  <div id="viewport" ng-view></div>
+
+  <div ng-controller="UpdateController">
+    <div id="updatedialog" class="ui small modal">
+      <div class="ui header" style="padding-top: 10px;padding-bottom: 4px;">{{_('UPDATE_AVAILABLE')}} - {{newVersion().versionString}}</div>
+      <div class="content">
+        <p>{{newVersion().message}}</p>
+        <pre ng-show="!dl">{{newVersion().changelog}}</pre>
+
+        <div ng-show="dl" class="ui indicating progress" id="updateprogress" data-percent="1">
+          <div class="bar" style="transition-duration: 300ms; width: 1%;">
+            <div class="progress">{{dl}}%</div>
+          </div>
+          <div class="label">{{_('DOWNLOADING_UPDATE')}}</div>
+        </div>
+        <input id="saveupdate" style="display:none" type="file" nwsaveas="{{filename}}" />
+      </div>
+
+      <div ng-show="!dl "class="actions">
+        <div class="ui cancel button">{{_('SKIP')}}</div>
+        <div ng-click="download()" class="ui blue button">{{_('DOWNLOAD')}}</div>
+      </div>
+      <div ng-show="dl "class="actions">
+        <div ng-click="cancel()" class="ui cancel button">{{_('CANCEL')}}</div>
+        <div ng-click="save()" ng-class="{'disabled': !dl_finished}" class="ui blue button">{{_('SAVE')}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div ng-include="'app/views/upload/upload.html'"></div>
+
+  <div ng-controller="AnalyticsController">
+    <div id="analytics"></div>
+  </div>
+  <div ng-controller="EastereggsController">
+    <style ng-if="eastereggs.get('rainbows')" type="text/css">@import url("css/eastereggs/rainbows.css");</style>
+    <style ng-if="eastereggs.get('darkmode')" type="text/css">@import url("css/eastereggs/darkmode.css");</style>
+    <style ng-if="eastereggs.get('redmode')" type="text/css">@import url("css/eastereggs/redmode.css");</style>
+    <style ng-if="eastereggs.get('abstract')" type="text/css">@import url("css/eastereggs/swag.css");</style>
+  </div>
+</body>
+
+</html>
+

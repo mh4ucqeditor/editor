@@ -1,0 +1,191 @@
+<div class="ui grid two columns" style="padding-bottom: 10px;">
+  <div class="ten wide column">
+    <form class="ui small form" name="forms.intruder">
+    <div class="two fields">
+      <div class="field" ng-class="{'error': forms.intruder.intruder_timer.$invalid}">
+        <label>{{_('INTRUDER_TIME')}}</label>
+        <div class="ui icon input">
+          <input name="intruder_timer" type="number" ng-model="quest.intruder_timer" min="0" max="255" required>
+          <i class="wait icon"></i>
+        </div>
+      </div>
+      <div class="field" ng-class="{'error': forms.intruder.intruder_chance.$invalid}">
+        <label style="white-space: nowrap;">{{_('INTRUDER_CHANCE')}}</label>
+        <input name="intruder_chance" type="number" ng-model="quest.intruder_chance" min="0" max="255" required>
+      </div>
+    </div>
+    </form>
+  </div>
+  <div class="six wide column"></div>
+  <div class="column monstercard" ng-repeat="monster in quest.unstable_monster_table">
+    <div class="ui items segment">
+      <div class="ui item">
+        <div class="ui image">
+          <i class="previewicon idx{{constants.monsterid_to_previewid[monster.monster.monster_id]}}"></i>
+        </div>
+        <div class="content">
+          <div class="header"><span ng-show="monster.monster.qty > 1">{{monster.monster.qty}}x</span> {{constants.monsters[monster.monster.monster_id] | i18n}}</div>
+          <div class="meta">
+            <div >
+              <div style="float: left; width: 120px">
+                <span>
+                  {{_('ATTACK')}}: {{quest.large_meta_table[2].atk}}<br>
+                  {{_('HEALTH')}}: {{quest.large_meta_table[2].hp}}<br>
+                  {{_('RESISTENCE')}}: {{quest.large_meta_table[2].break_res}}<br>
+                  {{_('STAMINA')}}: {{quest.large_meta_table[2].stamina}}
+                </span>
+              </div>
+              <div style="float: left">
+                <span>
+                  {{_('SIZE')}}: {{quest.large_meta_table[2].size}}% (+/- {{quest.large_meta_table[2].size_var}}%)<br>
+                  {{_('FRENZY')}}: {{constants.frenzy[monster.monster.infection]}}<br>
+                  {{_('CHANCE')}}: {{monster.chance}}%</span><br>
+                  <span ng-show="constants.special_mod[monster.monster.monster_id]">{{_('SPECIAL')}}: {{constants.special_mod[monster.monster.monster_id][monster.monster.special]}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="description" style="clear: both">
+            <p></p>
+          </div>
+          <div class="extra" style="  margin-left: -50px;margin-top: 15px;">
+            {{_('AREA')}}: {{monster.monster.area}}
+            (X: {{monster.monster.x | round_float}}, Y: {{monster.monster.y | round_float}}, Z: {{monster.monster.z | round_float}})
+          </div>
+        </div>
+        <div style="position: absolute; bottom: 8px; right: 4px">
+          <div class="ui tiny compact button" ng-click="duplicate_unstable_monster($index)">{{_('DUPLICATE')}}</div>
+          <div class="ui tiny compact button" ng-click="edit_unstable_monster($index)"><i class="edit icon"></i>{{_('EDIT')}}</div>
+        </div>
+        <div style="cursor: pointer; position: absolute; top: 4px; right: 4px" ng-click="remove_unstable_monster($index)">
+          <i class="close icon"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="column monstercard" style="min-height: 136px; text-align: center; padding-top: 55px;">
+    <div flex ng-click="add_unstable_monster()" class="ui tiny circular green button">
+      <i class="plus icon"></i>
+      {{_('ADD_MONSTER')}}
+    </div>
+  </div>
+  <div style="width: 50%">
+    <img ng-if="eastereggs.get('dancingjho')"  src="img/eggs/jho.gif" style="height: 200px;margin-top: -60px;margin-left:40px">
+  </div>
+
+</div>
+
+<div id="unstablemonstermodal" class="ui small modal">
+  <div class="ui header" style="padding-top: 10px;padding-bottom: 4px;">
+    <i class="previewicon idx{{constants.monsterid_to_previewid[$parent.$parent.current_edit_unstable_monster.monster.monster_id]}}"></i>
+    <div class="content">
+      {{constants.monsters[$parent.$parent.current_edit_unstable_monster.monster.monster_id] | i18n}}
+    </div>
+  </div>
+  <div class="content">
+    <img ng-if="[1,2,3,4,5,6,7,8,9,10,11,12,14,15,16,17,18,19,20,21].indexOf(quest.map_id) >= 0" ng-src="img/maps/map{{quest.map_id}}.png" style="position: absolute; top: 10px; right: 142px">
+    <div ng-if="constants.map_coordinates[quest.map_id][current_edit_unstable_monster.monster.area]"
+        class="areaimg"
+        style="position: absolute; top: 10px; right: 14px; background-image: url(img/areas/m{{quest.map_id | doublenum}}a{{current_edit_unstable_monster.monster.area | doublenum}}_ID.png);">
+          <img src="img/cross.png" class="cross" style="padding-left: {{area_x_unstable()}}px; padding-top: {{area_z_unstable()}}px" draggable="false">
+    </div>
+    <img ng-if="constants.map_coordinates[quest.map_id][current_edit_unstable_monster.monster.area]"
+      ng-click="set_coords_unstable($event)"
+      src="img/area_overlay.png"
+      style="position: absolute; top: 10px; right: 14px; z-index:1000" draggable="false">
+
+    <form class="ui small form" name="unstable_editform">
+      <div class="two fields">
+        <div class="field">
+          <label>{{_('MONSTER')}}</label>
+          <select ng-change="reload_special()" ng-model="$parent.$parent.current_edit_unstable_monster.monster.monster_id" ng-options="id | num as text | i18n for (id, text) in constants.monsters" class="ui search dropdown"></select>
+        </div>
+
+      </div>
+      <div class="two fields">
+        <div class="field" ng-class="{'error': unstable_editform.chance.$invalid}">
+          <label>{{_('CHANCE_LONG')}}</label>
+          <input name="chance" ng-model="$parent.$parent.current_edit_unstable_monster.chance" type="number" min="1" max="100" required>
+        </div>
+      </div>
+      <div class="three fields">
+        <div class="field" ng-class="{'error': unstable_editform.qty.$invalid}">
+          <label>{{_('RESPAWNS')}}</label>
+          <input name="qty" ng-model="$parent.$parent.current_edit_unstable_monster.monster.qty" type="number" min="1" max="255" required>
+        </div>
+        <div class="field" ng-class="{'error': unstable_editform.area.$invalid}">
+          <label>{{_('AREA')}}</label>
+          <input name="area" ng-model="$parent.$parent.current_edit_unstable_monster.monster.area" type="number" min="0" max="20" required>
+        </div>
+        <div class="field">
+          <label>{{_('FRENZY')}}</label>
+          <select ng-model="$parent.$parent.current_edit_unstable_monster.monster.infection" ng-options="id | num as text | i18n for (id, text) in constants.frenzy" class="ui search dropdown"></select>
+        </div>
+      </div>
+
+      <div class="four fields">
+        <div class="field" ng-class="{'error': unstable_editform.x.$invalid}">
+          <label>X</label>
+          <input name="x" ng-model="$parent.$parent.current_edit_unstable_monster.monster.x" ng-model-options="{debounce: 300}" type="number" required>
+        </div>
+        <div class="field" ng-class="{'error': unstable_editform.y.$invalid}">
+          <label>Y</label>
+          <input name="y" ng-model="$parent.$parent.current_edit_unstable_monster.monster.y" ng-model-options="{debounce: 300}" type="number" required>
+        </div>
+        <div class="field" ng-class="{'error': unstable_editform.z.$invalid}">
+          <label>Z</label>
+          <input name="z" ng-model="$parent.$parent.current_edit_unstable_monster.monster.z" ng-model-options="{debounce: 300}" type="number" required>
+        </div>
+        <div class="field" ng-class="{'error': editform.y_rot.$invalid}">
+          <label>{{_('ROTATION')}}</label>
+          <input name="y_rot" ng-model="$parent.$parent.current_edit_unstable_monster.monster.y_rot" type="number" min="0" max="4294967295" required>
+        </div>
+      </div>
+
+      <h4 class="ui dividing header">{{_('SHARED_STATS')}}</h4>
+      <div class="four fields">
+        <div class="field" ng-class="{'error': unstable_editform.atk.$invalid}">
+          <label>{{_('ATTACK')}}</label>
+          <input name="atk "ng-model="$parent.$parent.current_edit_unstable_meta.atk" type="number" min="0" max="255" required>
+        </div>
+        <div class="field" ng-class="{'error': unstable_editform.hp.$invalid}">
+          <label>{{_('HEALTH')}}</label>
+          <input name="hp" ng-model="$parent.$parent.current_edit_unstable_meta.hp" type="number" min="0" max="255" required>
+        </div>
+        <div class="field" ng-class="{'error': unstable_editform.break_res.$invalid}">
+          <label>{{_('RESISTENCE_LONG')}}</label>
+          <input name="break_res" ng-model="$parent.$parent.current_edit_unstable_meta.break_res" type="number" min="0" max="255" required>
+        </div>
+        <div class="field" ng-class="{'error': unstable_editform.stamina.$invalid}">
+          <label>{{_('STAMINA')}}</label>
+          <input name="stamina" ng-model="$parent.$parent.current_edit_unstable_meta.stamina" type="number" min="0" max="4" required>
+        </div>
+      </div>
+
+      <div class="three fields">
+        <div class="field" ng-class="{'error': unstable_editform.size.$invalid}">
+          <label>{{_('SIZE')}}</label>
+          <input name="size" ng-model="$parent.$parent.current_edit_unstable_meta.size" type="number" min="0" max="65535" required>
+        </div>
+        <div class="field" ng-show="current_edit_unstable_meta.size == 100" ng-class="{'error': unstable_editform.size_var.$invalid}">
+          <label>{{_('SIZE_VAR')}}</label>
+          <input name="size_var" ng-model="$parent.$parent.current_edit_unstable_meta.size_var" type="number" min="0" max="255" required>
+        </div>
+      </div>
+
+      <div class="three fields" ng-if="constants.special_mod[$parent.$parent.current_edit_unstable_monster.monster.monster_id]">
+        <div class="field" ng-class="{'error': unstable_editform.special.$invalid}">
+          <label>{{_('SPECIAL')}}</label>
+          <select name="special" ng-model="$parent.$parent.current_edit_unstable_monster.monster.special" ng-options="id | num as text | i18n for (id, text) in constants.special_mod[$parent.$parent.current_edit_unstable_monster.monster.monster_id]" class="ui special scrolling dropdown" required></select>
+        </div>
+      </div>
+
+    </form>
+<!--     <pre>{{current_edit_unstable_monster | json: 2}}</pre>
+    <pre>{{current_edit_small_meta | json: 2}}</pre> -->
+  </div>
+
+  <div class="actions">
+    <div class="ui cancel button">{{_('CANCEL')}}</div>
+    <div ng-click="save_edit_unstable_monster();" class="ui cancel blue button" ng-class="{'disabled': unstable_editform.$invalid}">{{_('SAVE')}}</div>
+  </div>
+</div>

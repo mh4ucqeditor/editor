@@ -1,0 +1,16 @@
+bower_components
+dist
+build
+nwjs
+
+# OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.lnk

@@ -1,0 +1,377 @@
+<div id="dragdrop" style="height: 100%">
+  <input id="importDialog" style="display:none" type="file" multiple/>
+  <input id="backupDialog" style="display:none" type="file" nwsaveas="cq_backup.cmib" />
+  <div ng-if="list.length == 0"
+       style="min-height:calc(100vh - 2px);display:flex;justify-content:center;align-items:center;">
+    <div class="ui raised compact center aligned segment" id="dropzone"
+         style="-webkit-font-smoothing: subpixel-antialiased">
+      <div ng-hide="filename">
+        <h2 class="ui center aligned icon header">
+          <i id="dragdropicon" class="massive text file outline icon"></i>
+          <span id="file-incoming-message">Drop a <code>.mib</code> file here!</span>
+        </h2>
+
+        <p>Start editing quests by dropping any encrypted/decrypted <code>.mib</code> file</p>
+        <p>...or start a custom quest from scratch</p>
+        <div ng-click="importDialog()" class="ui small blue button">{{_('IMPORT')}}</div>
+        <a href="#/editor" class="ui green compact button">New Quest</a>
+        <div ng-show="error" class="ui large red label"><i class="remove icon"></i>Invalid mib file.</div>
+      </div>
+
+    </div>
+  </div>
+  <div ng-show="list.length > 0" style="padding: 14px">
+    <div class="ui segment">
+      <h1>{{_('CQ_PROXY')}}</h1>
+      <div style="position: absolute; top: 6px; right: 6px; z-index: 1000">
+        <a class="ui" href="#/settings"><i class="large black settings icon"></i></a>
+      </div>
+      <div id="language_changer" class="ui compact scrolling dropdown" style="position: absolute; right: 47px; top: 7px;background-color: transparent !important; z-index: 1000">
+        <input type="hidden" name="country" value="{{i18n.current_locale()}}">
+        <div class="default text"></div>
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <div ng-click="i18n.select_locale('en'); refresh_buttons()" class="item" data-value="en"><i class="us flag"></i>English</div>
+          <div ng-click="i18n.select_locale('fr'); refresh_buttons()" class="item" data-value="fr"><i class="fr flag"></i>French</div>
+          <div ng-click="i18n.select_locale('es'); refresh_buttons()" class="item" data-value="es"><i class="es flag"></i>Spanish</div>
+          <div ng-click="i18n.select_locale('de'); refresh_buttons()" class="item" data-value="de"><i class="de flag"></i>German</div>
+          <div ng-click="i18n.select_locale('it'); refresh_buttons()" class="item" data-value="it"><i class="it flag"></i>Italian</div>
+          <div ng-click="i18n.select_locale('cn'); refresh_buttons()" class="item" data-value="cn"><i class="cn flag"></i>Chinese</div>
+        </div>
+      </div>
+
+      <form class="ui form" name="proxyForm">
+        <div class="three fields">
+          <div class="five wide disabled field">
+            <div class="ui labeled input">
+              <div class="ui label">{{_('IP')}}</div>
+              <!-- <input disabled type="text" ng-model="proxy.addr"/> -->
+              <textarea rows="{{proxy.addr.length}}" style="resize: none;" disabled>{{proxy.addr | proxy_filter}}</textarea>
+            </div>
+          </div>
+          <div class="four wide field" ng-class="{disabled: proxy.running, error: proxyForm.port.$invalid || proxy.port_changed}">
+            <div class="ui labeled input">
+              <div class="ui label">{{_('PORT')}}</div>
+              <input ng-model="proxy.port" name="port" ng-disabled="proxy.running" type="number" value="3000" min="1024" max="65535"/>
+            </div>
+          </div>
+          <div class="four wide field">
+            <div style="white-space: nowrap;" class="ui fluid blue labeled icon button" ng-click="toggle_proxy();">
+              <i ng-hide="proxy.running" class="wifi icon"></i>
+              <i ng-show="proxy.running" class="spinner loading icon"></i>
+              <span style="color:white !important;" ng-hide="proxy.running">{{_('START_PROXY')}}</span>
+              <span style="color:white !important;" ng-show="proxy.running">{{_('STOP_PROXY')}}</span>
+            </div>
+          </div>
+          <img ng-if="eastereggs.get('bbq')" src="img/eggs/bbq_spit.gif" style="position: absolute;right: -59px;bottom: -20px;">
+        </div>
+
+      </form>
+
+    </div>
+
+    <div class="ui shape">
+      <div class="sides">
+
+        <div class="side" ng-class="{'active': !palico_tab}">
+          <div class="ui segment">
+
+            <h1>{{_('QUEST_LIBRARY')}}
+              <div class="ui pointing left label">
+                {{list.length}}
+              </div>
+              <div class="ui tiny icon input" style="font-size: 0.4em;">
+                <input type="text" placeholder="{{_('SEARCH')}}" ng-model="search">
+                <i class="search icon"></i>
+              </div>
+                <img ng-if="eastereggs.get('konchu')" src="img/eggs/konchu.gif" style="  height: 160px;position: absolute;top: -64px;left: 450px;">
+            </h1>
+
+            <div ng-click="toggle_palico()" style="position: absolute; top: 10px; right: 10px; cursor: pointer">
+              <img src="img/palico.png">
+            </div>
+
+            <table class="ui small very basic compact table">
+              <thead>
+                <th class="center aligned">{{_('HOST')}}</th>
+                <th style="cursor: pointer;" ng-click="toggle_sort('json.quest_id')">
+                  {{_('ID')}}
+                  <i ng-show="sortBy === 'json.quest_id' && !sortReverse" class="icon caret down"></i>
+                  <i ng-show="sortBy === 'json.quest_id' && sortReverse" class="icon caret up"></i>
+                </th>
+                <th>{{_('QUEST_TITLE')}}</th>
+                <th>{{_('MONSTERS')}}</th>
+                <th>{{_('ACTIONS')}}</th>
+              </thead>
+              <tbody>
+              <tr ng-repeat="quest in list | filter: search | orderBy: sortBy: sortReverse track by $index">
+                <td class="collapsing center aligned">
+                  <div class="ui checkbox" style="margin-left: 9px; margin-top: 4px">
+                    <input type="checkbox"
+                           ng-model="quest.hosted"
+                           ng-true-value="true"
+                           ng-false-value="false"
+                           ng-change="clearDuplicateHost(quest)"/>
+                    <label></label>
+                  </div>
+                </td>
+                <td class="collapsing center aligned">
+                {{quest.json.quest_id}}<br>
+                <div ng-show="isEpisodic(quest)" class="ui tiny compact red label">Episodic</div>
+                <div ng-show="isChallenge(quest)" class="ui tiny compact purple label">Challenge</div>
+                </td>
+                <td class="collapsing" style="white-space: pre;"><h4>{{quest.json.text[text_idx][0] | strip_c}}</h4>{{quest.json.text[0][1]}}</td>
+                <td class="left aligned">
+                  <i ng-if="quest.json.pictures[0] !== 98" class="previewicon idx{{quest.json.pictures[0]}}"></i>
+                  <i ng-if="quest.json.pictures[1] !== 98" class="previewicon idx{{quest.json.pictures[1]}}"></i>
+                  <i ng-if="quest.json.pictures[2] !== 98" class="previewicon idx{{quest.json.pictures[2]}}"></i>
+                  <i ng-if="quest.json.pictures[3] !== 98" class="previewicon idx{{quest.json.pictures[3]}}"></i>
+                  <i ng-if="quest.json.pictures[4] !== 98" class="previewicon idx{{quest.json.pictures[4]}}"></i>
+                </td>
+                <td class="collapsing right aligned">
+                  <a ng-show="!isEpisodic(quest) && !isChallenge(quest)" class="ui small compact icon button" ng-href="#/editor/{{quest.uuid}}/">
+                    <i class="icon edit"></i>
+                    {{_EDIT}}
+                  </a>
+                  <div class="ui small compact icon button" ng-click="library.insert(library.get(quest.uuid).mib); refresh_list()">
+                    {{_COPY}}
+                  </div>
+                  <div class="ui small teal compact icon button" ng-click="export(quest.uuid)">
+                    <i class="icon external share"></i>
+                    {{_EXPORT}}
+                  </div>
+                  <div class="ui small red compact icon button" ng-click="library.delete(quest.uuid); refresh_list()">
+                    <i class="icon trash"></i>
+                    {{_DELETE}}
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="ui checkbox" style="margin-left: 9px; margin-top: 4px">
+                    <input ng-click="select_all()" type="checkbox"/>
+                    <label></label>
+                  </div>
+                </td>
+                <td colspan="4" class="collapsing right aligned">
+                  <div ng-click="openUpload()" class="ui small violet button">{{_('UPLOAD')}}</div>
+                  <div ng-click="backup()" class="ui small orange button">{{_('BACKUP')}}</div>
+                  <div class="ui small teal button" ng-click="export_selected()">{{_EXPORT}}</div>
+                  <div ng-click="importDialog()" class="ui small blue button">{{_('IMPORT')}}</div>
+                  <a class="ui small green button" href="#/editor/">{{_('NEW_QUEST')}}</a>
+
+                  <div class="ui small red button" ng-click="deleteLibrary()">{{_('DELETE_ALL')}}</div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="side" ng-class="{'active': palico_tab}">
+          <div class="ui segment">
+            <h1>{{_('PALICO_LIBRARY')}}</h1>
+            <div ng-click="toggle_palico()" style="position: absolute; top: 10px; right: 10px; cursor: pointer">
+              <img src="img/quest.png">
+            </div>
+
+            <table class="ui small very basic compact table">
+              <thead>
+                <th>{{_('HOST')}}</th>
+                <th>{{_('FORTE')}}</th>
+                <th>{{_('NAME')}}</th>
+                <th>{{_('OWNER')}}</th>
+                <th>{{_('ACTIONS')}}</th>
+              </thead>
+              <tbody>
+              <tr ng-repeat="palico in palico_list track by $index">
+                <td class="collapsing center aligned">
+                  <div class="ui checkbox" style="margin-left: 9px; margin-top: 4px">
+                    <input type="checkbox"
+                           ng-model="palico.hosted"
+                           ng-true-value="true"
+                           ng-false-value="false"
+                           ng-change="clearDuplicatePalicoHost(palico)"/>
+                    <label></label>
+                  </div>
+                </td>
+                <td class="collapsing"><i class="abilityicon idx{{constants.palico_abilityicon[palico.json.ability]}}"></i></td>
+                <td><h4>{{palico.json.name}}</h4>{{palico.json.shout}}</td>
+                <td>{{palico.json.owner}}</td>
+                <td class="collapsing right aligned">
+                  <a class="ui small compact icon button" ng-href="#/palico_editor/{{palico.uuid}}/">
+                    <i class="icon edit"></i>
+                    {{_EDIT}}
+                  </a>
+                  <div class="ui small teal compact icon button" ng-click="exportPalico(palico.uuid)">
+                    <i class="icon external share"></i>
+                    {{_EXPORT}}
+                  </div>
+                  <div class="ui small red compact icon button" ng-click="library.delete_otb(palico.uuid); refresh_list()">
+                    <i class="icon trash"></i>
+                    {{_DELETE}}
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="ui checkbox" style="margin-left: 9px; margin-top: 4px">
+                    <input ng-click="select_all_otb()" type="checkbox"/>
+                    <label></label>
+                  </div>
+                </td>
+                <td colspan="4" class="collapsing right aligned">
+                  <div ng-click="importDialog()" class="ui small blue button">{{_('IMPORT')}}</div>
+                  <div class="ui small red button" ng-click="deletePalicoLibrary()">{{_('DELETE_ALL')}}</div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div id="exportmodal" class="ui small modal">
+  <div class="header">{{export_quest.json.text[0][0]}}</div>
+  <div class="content">
+
+    <div class="ui input">
+      <div class="ui scrolling selection dropdown" style="width: 300px">
+        <input type="hidden" value="none">
+        <div class="text">{{_('UNENCRYPTED')}}</div>
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="active item" ng-click="select_export_local('none')">{{_('UNENCRYPTED')}}</div>
+          <div class="item" ng-click="select_export_local('us')">{{_('US_ENCRYPTION')}}</div>
+          <div class="item" ng-click="select_export_local('jp')">{{_('JP_ENCRYPTION')}}</div>
+          <div class="item" ng-click="select_export_local('kr')">{{_('KR_ENCRYPTION')}}</div>
+          <div class="item" ng-click="select_export_local('tw')">{{_('TW_ENCRYPTION')}}</div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="ui input" style="margin-top: 15px">
+      <div class="ui checkbox">
+        <input type="checkbox" ng-model="export_info_file" name="export_info_file">
+        <label>{{_('GENERATE_DLC_INFO')}}</label>
+      </div>
+    </div>
+    <input id="saveas" style="display:none" type="file" nwsaveas="m{{export_quest.json.quest_id}}.mib" />
+  </div>
+  <div class="actions">
+    <div class="ui cancel button">{{_('CANCEL')}}</div>
+    <div class="ui blue button" ng-class="{'disabled': export_local === null}" ng-click="saveDialog()">{{_('SAVE_AS')}}</div>
+  </div>
+</div>
+
+<div id="exportselectedmodal" class="ui small modal">
+  <div class="header">{{_('EXPORT_SELECTED')}}</div>
+  <div class="content">
+    <p>{{_('EXPORT_SELECTED_MSG')}}</p>
+    <div class="ui input">
+      <div class="ui scrolling selection dropdown" style="width: 300px">
+        <input type="hidden" value="none">
+        <div class="text">{{_('UNENCRYPTED')}}</div>
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="active item" ng-click="select_exportselected_local('none')">{{_('UNENCRYPTED')}}</div>
+          <div class="item" ng-click="select_exportselected_local('us')">{{_('US_ENCRYPTION')}}</div>
+          <div class="item" ng-click="select_exportselected_local('jp')">{{_('JP_ENCRYPTION')}}</div>
+          <div class="item" ng-click="select_exportselected_local('kr')">{{_('KR_ENCRYPTION')}}</div>
+          <div class="item" ng-click="select_exportselected_local('tw')">{{_('TW_ENCRYPTION')}}</div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="ui input" style="margin-top: 15px">
+      <div class="ui checkbox">
+        <input type="checkbox" ng-model="export_info_file" name="export_info_file">
+        <label>{{_('GENERATE_DLC_INFO')}}</label>
+      </div>
+    </div>
+    <input id="saveSelectedDialog" style="display:none" type="file" nwdirectory />
+  </div>
+  <div class="actions">
+    <div class="ui cancel button">{{_('CANCEL')}}</div>
+    <div class="ui blue button" ng-class="{'disabled': export_local === null}" ng-click="saveSelectedDialog()">{{_('SAVE_AS')}}</div>
+  </div>
+</div>
+
+
+<div id="exportPalico" class="ui small modal">
+  <div class="header">{{export_palico.json.name}}</div>
+  <div class="content">
+
+    <div class="ui input">
+      <div class="ui scrolling selection dropdown" style="width: 300px">
+        <input type="hidden" value="none">
+        <div class="default text">{{_('CHOOSE_ENCRYPTION')}}</div>
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item" ng-click="select_export_local('none')">{{_('UNENCRYPTED')}}</div>
+          <div class="item" ng-click="select_export_local('us')">{{_('US_ENCRYPTION')}}</div>
+          <div class="item" ng-click="select_export_local('jp')">{{_('JP_ENCRYPTION')}}</div>
+          <div class="item" ng-click="select_export_local('kr')">{{_('KR_ENCRYPTION')}}</div>
+          <div class="item" ng-click="select_export_local('tw')">{{_('TW_ENCRYPTION')}}</div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="ui input" style="margin-top: 15px">
+      <div class="ui checkbox">
+        <input type="checkbox" ng-model="export_info_file" name="export_info_file">
+        <label>{{_('GENERATE_DLC_INFO')}}</label>
+      </div>
+    </div>
+    <input id="savePalico" style="display:none" type="file" nwsaveas="{{export_palico.json.name}}.otb" />
+  </div>
+  <div class="actions">
+    <div class="ui cancel button">{{_('CANCEL')}}</div>
+    <div class="ui blue button" ng-class="{'disabled': export_local === null}" ng-click="savePalicoDialog()">{{_('SAVE_AS')}}</div>
+  </div>
+</div>
+
+<div id="deleteLibraryDialog" class="ui small basic modal">
+  <div class="header">
+    {{_('DELETE_QUEST_LIBRARY')}}
+  </div>
+  <div class="image content">
+    <div class="image">
+      <i class="warning sign icon"></i>
+    </div>
+    <div class="description">
+      <p>{{_('DELETE_QUEST_LIBRARY_MSG')}}</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="three fluid ui inverted buttons">
+      <div class="ui cancel red basic inverted button">
+        <i class="remove icon"></i>
+        {{_('NO')}}
+      </div>
+      <div class="ui approve green basic inverted button">
+        <i class="checkmark icon"></i>
+        {{_('YES')}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="nohosted" class="ui small modal">
+  <div class="header">{{_('NO_QUEST_HOSTED')}}</div>
+  <div class="content">
+    <p>{{_('NO_QUEST_HOSTED_MSG')}}</p>
+    <p>{{_('NO_QUEST_HOSTED_RESTART')}}</p>
+  </div>
+  <div class="actions">
+    <div class="ui blue cancel button">{{_('OK')}}</div>
+  </div>
+</div>

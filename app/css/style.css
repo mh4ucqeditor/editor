@@ -1,0 +1,57 @@
+/* disable scrolling in window */
+html, body {
+    height: 100%;
+    background-color: whitesmoke;
+    /* disable selecting in editor (for production)*/
+    -webkit-user-select: none;
+    /* disable bouncy scrolling */
+    overflow: hidden;
+}
+
+.ui.modal {
+    -webkit-user-select: none;
+}
+
+#viewport {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+}
+
+textarea.fixed {
+    resize: none !important;
+}
+
+#dropzone {
+    padding: 50px;
+}
+
+button i.flag {
+    margin-top: -2px !important;
+    vertical-align: middle !important;
+}
+
+.ui.labeled.icon.button>.icon {
+  background-color: rgba(0,0,0,0);
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.ui[class*="very compact"].table td {
+  padding: .2em .2em;
+}
+
+.shape, .side, .sides {
+    width: 100%;
+    max-width: 100% !important;
+}
+
+@media (min-width: 1200px) {
+    .monstercard {
+        width: 33.3333333% !important;
+    }
+}

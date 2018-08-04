@@ -1,0 +1,173 @@
+<div class="ui grid">
+  <div ng-cloak class="sixteen wide column" style="padding-bottom: 0">
+    <!-- Header -->
+    <div class="ui secondary pointing top fixed small menu" style="background-color: whitesmoke">
+      <a class="item" ng-click="gotoLibrary()">
+        <i class="angle left icon"></i>
+        {{_('PALICO_LIBRARY')}}
+        <div class="ui pointing left label" ng-if="lib_length > 0">
+          {{lib_length}}
+        </div>
+      </a>
+      <a class="item nowrap active" data-tab="general">{{_('GENERAL')}}</a>
+
+      <div class="right menu">
+        <div class="item nowrap">
+          <h4>
+            <i class="abilityicon idx{{constants.palico_abilityicon[palico.ability]}}"></i>
+            {{palico.name}}
+          </h4>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px; padding: 14px;">
+      <!-- Tabs -->
+      <div class="ui tab active" data-tab="general">
+        <!-- <pre>{{palico | json: 2}}</pre> -->
+        <form class="ui small form segment" id="general" name="forms.general">
+
+          <div class="three fields">
+            <div class="field" ng-class="{'error': forms.general.name.$invalid}">
+              <label>{{_('NAME')}}</label>
+              <input type="text" name="name" ng-model="palico.name" maxlength="{{30-palico.owner.length-palico.shout.length}}" required>
+            </div>
+            <div class="field" ng-class="{'error': forms.general.owner.$invalid}">
+              <label>{{_('OWNER')}}</label>
+              <input type="text" name="owner" ng-model="palico.owner" maxlength="{{30-palico.name.length-palico.shout.length}}" required>
+            </div>
+            <div class="field" ng-class="{'error': forms.general.shout.$invalid}">
+              <label>{{_('SHOUT')}}</label>
+              <input type="text" name="shout" ng-model="palico.shout" maxlength="{{30-palico.name.length-palico.owner.length}}" required>
+            </div>
+          </div>
+
+          <div class="three fields">
+            <div class="field" ng-class="{'error': forms.general.level.$invalid}">
+              <label>{{_('LEVEL')}}</label>
+              <input type="number" name="level" ng-model="palico.level" min="1" max="30">
+            </div>
+            <div class="field" ng-class="{'error': forms.general.forte.$invalid}">
+              <label>{{_('ABILITY')}}</label>
+              <select name="forte" ng-model="palico.ability" ng-options="id | num as text | i18n for (id, text) in constants.palico_abilities" class="ui search dropdown" required></select>
+            </div>
+            <div class="field" ng-class="{'error': forms.general.teamAtk.$invalid}">
+              <label>{{_('TEAM_ATTACK')}}</label>
+              <select name="teamAtk" ng-model="palico.teamAtk" ng-options="id | num as text | i18n for (id, text) in constants.palico_teamatk" class="ui search dropdown" required></select>
+            </div>
+          </div>
+
+          <h4 class="ui dividing header">{{_('SKILLS')}}</h4>
+          <div class="three fields">
+            <div class="field" ng-class="{'error': forms.general.skill1.$invalid}">
+              <label>{{_('SKILL')}} 1</label>
+              <select name="skill1" ng-model="palico.skill1" ng-options="id | num as text | i18n for (id, text) in constants.palico_skills" class="ui search dropdown" required></select>
+            </div>
+            <div class="field" ng-class="{'error': forms.general.skill2.$invalid}">
+              <label>{{_('SKILL')}} 2</label>
+              <select name="skill2" ng-model="palico.skill2" ng-options="id | num as text | i18n for (id, text) in constants.palico_skills" class="ui search dropdown" required></select>
+            </div>
+            <div class="field" ng-class="{'error': forms.general.skill3.$invalid}">
+              <label>{{_('SKILL')}} 3</label>
+              <select name="skill3" ng-model="palico.skill3" ng-options="id | num as text | i18n for (id, text) in constants.palico_skills" class="ui search dropdown" required></select>
+            </div>
+          </div>
+
+          <div class="three fields">
+            <div class="field" ng-class="{'error': forms.general.skill4.$invalid}">
+              <label>{{_('SKILL')}} 4</label>
+              <select name="skill4" ng-model="palico.skill4" ng-options="id | num as text | i18n for (id, text) in constants.palico_skills" class="ui search dropdown" required></select>
+            </div>
+            <div class="field" ng-class="{'error': forms.general.skill5.$invalid}">
+              <label>{{_('SKILL')}} 5</label>
+              <select name="skill5" ng-model="palico.skill5" ng-options="id | num as text | i18n for (id, text) in constants.palico_skills" class="ui search dropdown" required></select>
+            </div>
+            <div class="field" ng-class="{'error': forms.general.skillSig.$invalid}">
+              <label>{{_('SIGNATURE_SKILL')}}</label>
+              <select name="skillSig" ng-model="palico.skillSig" ng-options="id | num as text | i18n for (id, text) in constants.palico_skills" class="ui search dropdown" required></select>
+            </div>
+          </div>
+
+          <h4 class="ui dividing header">{{_('APPEARANCE')}}</h4>
+          <div class="four fields">
+            <div class="field" ng-class="{'error': forms.general.coat.$invalid}">
+              <label>{{_('COAT')}}</label>
+              <select name="coat" ng-model="palico.coat" ng-options="id | num as text | i18n for (id, text) in constants.palico_coats" class="ui dropdown" required></select>
+            </div>
+            <div class="field" ng-class="{'error': forms.general.coat_color.$invalid}">
+              <label>{{_('COAT_COLOR')}}</label>
+              <input type="color" name="coat_color" ng-model="coat_color" ng-change="coat_color_change()" required />
+            </div>
+            <div class="field" ng-class="{'error': forms.general.clothing.$invalid}">
+              <label>{{_('CLOTHING')}}</label>
+              <select name="clothing" ng-model="palico.clothing" ng-options="id | num as text | i18n for (id, text) in type_gen(2)" class="ui dropdown" required></select>
+            </div>
+            <div class="field" ng-class="{'error': forms.general.clothing_color.$invalid}">
+              <label>{{_('CLOTHING_COLOR')}}</label>
+              <input type="color" name="clothing_color" ng-model="clothing_color" ng-change="clothing_color_change()" required />
+            </div>
+          </div>
+
+          <div class="four fields">
+            <div class="field" ng-class="{'error': forms.general.eyes.$invalid}">
+              <label>{{_('EYE_SHAPE')}}</label>
+              <select name="eyes" ng-model="palico.eyes" ng-options="id | num as text | i18n for (id, text) in type_gen(6)" class="ui dropdown" required></select>
+            </div>
+            <div class="field" ng-class="{'error': forms.general.ears.$invalid}">
+              <label>{{_('EARS')}}</label>
+              <select name="ears" ng-model="palico.ears" ng-options="id | num as text | i18n for (id, text) in type_gen(3)" class="ui dropdown" required></select>
+            </div>
+            <div class="field" ng-class="{'error': forms.general.tail.$invalid}">
+              <label>{{_('TAIL')}}</label>
+              <select name="tail" ng-model="palico.tail" ng-options="id | num as text | i18n for (id, text) in type_gen(3)" class="ui dropdown" required></select>
+            </div>
+            <div class="field" ng-class="{'error': forms.general.voice.$invalid}">
+              <label>{{_('VOICE')}}</label>
+              <select name="voice" ng-model="palico.voice" ng-options="id | num as text | i18n for (id, text) in type_gen(5)" class="ui dropdown" required></select>
+            </div>
+
+
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Actions -->
+      <div style="text-align: right; margin-top: 14px">
+        <div class="ui button" ng-click="gotoLibrary()">{{_('CANCEL')}}</div>
+        <div class="ui blue button" ng-class="{'disabled': forms.general.$invalid}" ng-click="save()">{{_('SAVE')}}</div>
+      </div>
+
+  </div>
+</div>
+
+<div id="confirmDialog" class="ui small basic modal">
+  <i class="close icon"></i>
+  <div class="header">
+    {{_('UNSAVED_CHANGES')}}
+  </div>
+  <div class="image content">
+    <div class="image">
+      <i class="archive icon"></i>
+    </div>
+    <div class="description">
+      <p>{{_('GO_BACK_TO_LIBRARY')}}</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="three fluid ui inverted buttons">
+      <a class="ui cancel red basic inverted button" href="#/library/1">
+        <i class="remove icon"></i>
+        {{_('DONT_SAVE')}}
+      </a>
+      <div class="ui blue cancel basic inverted button">
+        <i class="remove icon"></i>
+        {{_('CANCEL')}}
+      </div>
+      <a class="ui cancel green basic inverted button" ng-class="{'disabled': forms.general.$invalid}" ng-click="save()">
+        <i class="checkmark icon"></i>
+        {{_('SAVE')}}
+      </a>
+    </div>
+  </div>
+</div>

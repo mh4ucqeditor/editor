@@ -1,0 +1,317 @@
+<div class="ui small top attached tabular menu">
+  <a class="active item" data-tab="header">{{_('HEADER')}}</a>
+  <a class="item" data-tab="objectives">{{_('REQUIREMENTS_OBJECTIVES')}}</a>
+  <a class="item" data-tab="preview">{{_('PREVIEW')}}</a>
+</div>
+
+<div class="ui bottom attached active tab segment" data-tab="header">
+<div class="ui error message" ng-if="config.userSettings.get('quest_nagv2')">
+  <i ng-click="config.userSettings.set('quest_nagv2', false);" class="close icon"></i>
+  <div class="header">
+    {{_('IMPORTANT')}}
+  </div>
+  <p>{{_('QUEST_NAG')}}</p>
+</div>
+<form class="ui small form" id="general" name="forms.general">
+  <div class="field">
+    <div class="field">
+      <label>{{_('QUEST_ID')}}</label>
+      <div class="ui search selection scrolling dropdown">
+        <input type="number" name="quest_id" value="{{quest.quest_id}}">
+        <div class="text">
+          <span class="description">{{constants.quest_restrictions[quest.quest_id] | qid_desc | i18n}}</span>
+          <span class="text">{{quest.quest_id}} ({{quest.quest_id | qid_rank}})</span>
+        </div>
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <div ng-repeat="(qid, restrictions) in constants.quest_restrictions" ng-click="select_quest_id(qid)" class="item" data-value="{{qid}}">
+            <span class="description">{{restrictions | qid_desc | i18n}}</span>
+            <span class="text">{{qid}} ({{qid | qid_rank}})</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="three fields">
+    <div class="field" ng-class="{'error': forms.general.quest_type.$invalid}">
+      <label>{{_('QUEST_TYPE')}}</label>
+      <select name="quest_type" ng-model="quest.quest_type" ng-options="id | num as text | i18n for (id, text) in constants.quest_types" class="ui search dropdown" required></select>
+    </div>
+    <div class="field" ng-class="{'error': forms.general.map.$invalid}">
+      <label>{{_('MAP')}}</label>
+      <select name="map" ng-model="quest.map_id" ng-options="id | num as text | i18n for (id, text) in constants.maps" class="ui search dropdown" required></select>
+    </div>
+    <div class="field" ng-class="{'error': forms.general.spawn_area.$invalid}">
+      <label>{{_('PLAYER_SPAWN')}}</label>
+      <select name="spawn_area" ng-model="quest.spawn_area" ng-options="id | num as text | i18n for (id, text) in constants.spawn_areas" class="ui search dropdown" required></select>
+    </div>
+    <div class="field" ng-class="{'error': forms.general.quest_time.$invalid}">
+      <label>{{_('QUEST_TIME')}}</label>
+      <div class="ui icon input">
+        <input name="quest_time" type="number" ng-model="quest.time" min="0" max="255" required>
+        <i class="wait icon"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="four fields">
+    <div class="field" ng-class="{'error': forms.general.quest_rank.$invalid}">
+      <label>{{_('QUEST_RANK')}}</label>
+      <select name="quest_rank" ng-model="quest.quest_rank" ng-options="id | num as text | i18n for (id, text) in constants.ranks" class="ui search dropdown" required></select>
+    </div>
+    <div class="field" ng-class="{'error': forms.general.gather_rank.$invalid}">
+      <label>{{_('GATHER_RANK')}}</label>
+      <select name="gather_rank" ng-model="quest.gather_rank" ng-options="id | num as text | i18n for (id, text) in constants.gather_ranks" class="ui search dropdown" required></select>
+    </div>
+    <div class="field" ng-class="{'error': forms.general.carve_rank.$invalid}">
+      <label>{{_('CARVE_RANK')}}</label>
+      <select name="carve_rank" ng-model="quest.carve_rank" ng-options="id | num as text | i18n for (id, text) in constants.carve_ranks" class="ui search dropdown" required></select>
+    </div>
+    <div class="field" ng-class="{'error': forms.general.monster_ai.$invalid}">
+      <label>{{_('MONSTER_AI_RANK')}}</label>
+      <select name="monster_ai" ng-model="quest.monster_ai" ng-options="id | num as text | i18n for (id, text) in constants.monster_ai" class="ui search dropdown" required></select>
+    </div>
+  </div>
+
+  <div class="three fields">
+    <div class="field" ng-class="{'error': forms.general.fee.$invalid}">
+      <label>{{_('QUEST_FEE')}}</label>
+      <input name="fee" type="number" ng-model="quest.fee" min="0" max="100000" required>
+    </div>
+  </div>
+
+  <h4 ng-show="quest.map_id === 11" class="ui dividing header">{{_('ARENA_FENCE')}}</h4>
+  <div class="four fields" ng-show="quest.map_id === 11">
+    <div class="field" ng-class="{'error': forms.general.arena_fence.$invalid}">
+      <label>{{_('ARENA_FENCE')}}</label>
+        <select name="arena_fence" ng-model="quest.arena_fence" ng-options="id | num as text | i18n for (id, text) in constants.arena_fence" class="ui dropdown" required></select>
+    </div>
+    <div class="field" ng-class="{'error': forms.general.fence_state.$invalid}">
+        <label>{{_('FENCE_STATE')}}</label>
+        <select name="fence_state" ng-model="quest.fence_state" ng-options="id | num as text | i18n for (id, text) in constants.arena_fence" class="ui dropdown" required></select>
+    </div>
+    <div class="field" ng-class="{'error': forms.general.fence_uptime.$invalid}">
+        <label>{{_('FENCE_UPTIME')}}</label>
+        <input name="fence_uptime" ng-model="quest.fence_uptime" type="number" min="0" max="255" required></input>
+    </div>
+    <div class="field" ng-class="{'error': forms.general.fence_cooldown.$invalid}">
+        <label>{{_('FENCE_COOLDOWN')}}</label>
+        <input name="fence_cooldown" ng-model="quest.fence_cooldown" type="number" min="0" max="255" required></input>
+    </div>
+  </div>
+
+  <h4 class="ui dividing header">{{_('REWARDS')}}</h4>
+  <div class="three fields">
+    <div class="field" ng-class="{'error': forms.general.reward_main.$invalid}">
+      <label>{{_('ZENNY')}}</label>
+      <input name="reward_main" type="number" ng-model="quest.reward_main" min="0" max="99999999" required>
+    </div>
+    <div class="field" ng-class="{'error': forms.general.reward_reduction.$invalid}">
+      <label>{{_('ZENNY_SUBTRACT')}} ({{quest.reward_main / quest.reward_reduction | ceil}} {{_('CARTS')}})</label>
+      <input name="reward_reduction" type="number" ng-model="quest.reward_reduction" min="0" max="99999999" required>
+    </div>
+    <div class="field" ng-class="{'error': forms.general.reward_sub.$invalid}">
+      <label>{{_('ZENNY_SUBQUEST')}}</label>
+      <input name="reward_sub" type="number" ng-model="quest.reward_sub" min="0" max="99999999" required>
+    </div>
+  </div>
+
+  <div class="three fields">
+    <div class="field"  ng-class="{'error': forms.general.hrp.$invalid}">
+      <label>{{_('HRP')}}</label>
+      <input name="hrp" type="number" ng-model="quest.hrp" min="0" max="7000" required>
+    </div>
+    <div class="field" ng-class="{'error': forms.general.hrp_reduction.$invalid}">
+      <label>{{_('HRP_SUBTRACT')}}</label>
+      <input name="hrp_reduction" type="number" ng-model="quest.hrp_reduction" min="0" max="7000" required>
+    </div>
+    <div class="field" ng-class="{'error': forms.general.hrp_sub.$invalid}">
+      <label>{{_('HRP_SUBQUEST')}}</label>
+      <input name="hrp_sub" type="number" ng-model="quest.hrp_sub" min="0" max="7000" required>
+    </div>
+  </div>
+
+
+
+</form>
+</div>
+
+
+<div class="ui bottom attached tab segment" data-tab="objectives">
+  <div style="padding: 14px">
+    <form class="ui small form" name="forms.reqobj" id="reqobj">
+      <h4 class="ui dividing header">{{_('QUEST_REQUIREMENTS')}}</h4>
+      <div class="field">
+        <div class="two fields">
+          <div class="field" ng-class="{'error': forms.reqobj.req1.$invalid}">
+            <select name="req1" ng-model="quest.requirements[0]" ng-options="id | num as text | i18n for (id, text) in constants.requirements" class="ui search dropdown" required></select>
+          </div>
+          <div class="field" ng-class="{'error': forms.reqobj.req2.$invalid}">
+            <select name="req2" ng-model="quest.requirements[1]" ng-options="id | num as text | i18n for (id, text) in constants.requirements" class="ui search dropdown" required></select>
+          </div>
+        </div>
+      </div>
+
+      <h4 class="ui dividing header">{{_('QUEST_OBJECTIVES')}}</h4>
+      <div class="field">
+        <label>{{_('FIRST_MAIN_OBJECTIVE')}}</label>
+        <div class="three fields">
+          <div class="field">
+            <label>{{_('TYPE')}}</label>
+            <select ng-change="reload_dropdown();  quest.objectives[0].qty = 0;" ng-model="quest.objectives[0].type" ng-options="id | num as text | i18n for (id, text) in constants.objectives" class="ui search dropdown"></select>
+          </div>
+          <div class="field" ng-if="quest.objectives[0].type !== 2"  ng-class="{'error': forms.reqobj.obj1_target.$invalid}">
+            <label>{{_('MONSTER')}}</label>
+            <select name="obj1_target" ng-model="quest.objectives[0].target_id" ng-options="id | num as text | i18n for (id, text) in constants.monsters_with_none" class="ui search dropdown monster" required></select>
+          </div>
+          <div class="field" ng-if="quest.objectives[0].type === 2" ng-class="{'error': forms.reqobj.obj1_target.$invalid}">
+            <label>{{_('ITEM')}}</label>
+            <!-- <input name="obj1_target" type="number" ng-model="quest.objectives[0].target_id" min="0" max="65535" required> -->
+            <div id="deliversearch_main1" class="ui search">
+              <div class="ui icon input">
+                <input class="prompt" type="text" placeholder="Search Items..." value="{{constants.items[quest.objectives[0].target_id] | i18n}}" select-on-click>
+                <i class="search icon"></i>
+              </div>
+              <div class="results"></div>
+            </div>
+          </div>
+          <div ng-if="quest.objectives[0].type !== 516" class="field" ng-class="{'error': forms.reqobj.obj1_amount.$invalid}">
+            <label>{{_('QUANTITY')}}</label>
+            <input name="obj1_amount" type="number" ng-model="quest.objectives[0].qty" min="0" max="255" required>
+          </div>
+          <div ng-if="quest.objectives[0].type === 516" class="field" ng-class="{'error': forms.reqobj.obj1_break.$invalid}">
+            <label ng-if="quest.objectives[0].type === 516">{{_('BREAK_PART')}}</label>
+            <select ng-if="quest.objectives[0].type === 516" name="obj1_break" ng-model="quest.objectives[0].qty" ng-options="id | num as text | i18n for (id, text) in constants.break_parts[quest.objectives[0].target_id]" class="ui search dropdown monster" required></select>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>{{_('SECOND_MAIN_OBJECTIVE')}}</label>
+        <div class="three fields">
+          <div class="field">
+            <label>{{_('TYPE')}}</label>
+            <select ng-change="reload_dropdown(); quest.objectives[1].qty = 0;" ng-model="quest.objectives[1].type" ng-options="id | num as text | i18n for (id, text) in constants.objectives" class="ui search dropdown"></select>
+          </div>
+          <div class="field" ng-if="quest.objectives[1].type !== 2" ng-class="{'error': forms.reqobj.obj2_target.$invalid}">
+            <label>{{_('MONSTER')}}</label>
+            <select name="obj2_target" ng-model="quest.objectives[1].target_id" ng-options="id | num as text | i18n for (id, text) in constants.monsters_with_none" class="ui search dropdown monster" required></select>
+          </div>
+          <div class="field" ng-if="quest.objectives[1].type === 2" ng-class="{'error': forms.reqobj.obj2_target.$invalid}">
+            <label>{{_('ITEM')}}</label>
+            <!-- <input name="obj2_target" type="number" ng-model="quest.objectives[1].target_id" min="0" max="65535" required> -->
+            <div id="deliversearch_main2" class="ui search">
+              <div class="ui icon input">
+                <input class="prompt" type="text" placeholder="Search Items..." value="{{constants.items[quest.objectives[1].target_id] | i18n}}" select-on-click>
+                <i class="search icon"></i>
+              </div>
+              <div class="results"></div>
+            </div>
+          </div>
+          <div ng-if="quest.objectives[1].type !== 516" class="field" ng-class="{'error': forms.reqobj.obj2_amount.$invalid}">
+            <label>{{_('QUANTITY')}}</label>
+            <input name="obj2_amount" type="number" ng-model="quest.objectives[1].qty" min="0" max="255" required>
+          </div>
+          <div ng-if="quest.objectives[1].type === 516" class="field" ng-class="{'error': forms.reqobj.obj2_break.$invalid}">
+            <label ng-if="quest.objectives[1].type === 516">{{_('BREAK_PART')}}</label>
+            <select ng-if="quest.objectives[1].type === 516" name="obj2_break" ng-model="quest.objectives[1].qty" ng-options="id | num as text | i18n for (id, text) in constants.break_parts[quest.objectives[1].target_id]" class="ui search dropdown monster" required></select>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>{{_('SUB_OBJECTIVE')}}</label>
+        <div class="three fields">
+          <div class="field">
+            <label>{{_('TYPE')}}</label>
+            <select ng-change="reload_dropdown();  quest.objective_sub.qty = 0;" ng-model="quest.objective_sub.type" ng-options="id | num as text | i18n for (id, text) in constants.objectives" class="ui search dropdown"></select>
+          </div>
+          <div class="field" ng-if="quest.objective_sub.type !== 2" ng-class="{'error': forms.reqobj.obj_sub_target.$invalid}">
+            <label>{{_('MONSTER')}}</label>
+            <select name="obj_sub_target" ng-model="quest.objective_sub.target_id" ng-options="id | num as text | i18n for (id, text) in constants.monsters_with_none" class="ui search dropdown monster" required></select>
+          </div>
+          <div class="field" ng-if="quest.objective_sub.type === 2" ng-class="{'error': forms.reqobj.obj_sub_target.$invalid}">
+            <label>{{_('ITEM')}}</label>
+            <!-- <input name="obj_sub_target" type="number" ng-model="quest.objective_sub.target_id" min="0" max="65535" required> -->
+            <div id="deliversearch_sub" class="ui search">
+              <div class="ui icon input">
+                <input class="prompt" type="text" placeholder="Search Items..." value="{{constants.items[quest.objective_sub.target_id] | i18n}}" select-on-click>
+                <i class="search icon"></i>
+              </div>
+              <div class="results"></div>
+            </div>
+          </div>
+          <div ng-if="quest.objective_sub.type !== 516" class="field" ng-class="{'error': forms.reqobj.obj_sub_amount.$invalid}">
+            <label>{{_('QUANTITY')}}</label>
+            <input name="obj_sub_amount" type="number" ng-model="quest.objective_sub.qty" min="0" max="255" required>
+          </div>
+          <div ng-if="quest.objective_sub.type === 516" class="field" ng-class="{'error': forms.reqobj.obj_sub_break.$invalid}">
+            <label ng-if="quest.objective_sub.type === 516">{{_('BREAK_PART')}}</label>
+            <select ng-if="quest.objective_sub.type === 516" name="obj_sub_break" ng-model="quest.objective_sub.qty" ng-options="id | num as text | i18n for (id, text) in constants.break_parts[quest.objective_sub.target_id]" class="ui search dropdown monster" required></select>
+          </div>
+        </div>
+        <h4 class="ui dividing header">{{_('EXTRA')}}</h4>
+        <div class="three fields">
+          <div class="field ui checkbox">
+            <input type="checkbox" ng-model="quest.three_obj_flag" ng-true-value="1 | num" ng-false-value="0 | num">
+            <label>{{_('SUBQUEST_AS_MAIN')}}</label>
+          </div>
+          <div class="field ui checkbox">
+            <input type="checkbox" ng-model="quest.repel_flag" ng-true-value="1 | num" ng-false-value="0 | num">
+            <label>{{_('ALLOW_REPEL')}}</label>
+          </div>
+          <div class="field ui checkbox">
+            <input type="checkbox" ng-model="quest.huntathon_flag" ng-true-value="1 | num" ng-false-value="0 | num">
+            <label>{{_('HUNTATHON')}}</label>
+          </div>
+          <div class="field ui checkbox">
+            <input type="checkbox" ng-model="quest.kushala_flag" ng-true-value="1 | num" ng-false-value="0 | num">
+            <label>{{_('RKUSHALA_FLAG')}}</label>
+          </div>
+          <div class="field ui checkbox">
+            <input type="checkbox" ng-model="quest.objective_or" ng-true-value="1 | num" ng-false-value="0 | num">
+            <label>{{_('OBJ_OR_FLAG')}}</label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="ui bottom attached tab segment" data-tab="preview">
+  <div style="padding: 14px">
+    <div class="ui segment" style="text-align: center">
+      <i class="previewicon idx{{quest.pictures[0]}}"></i>
+      <i class="previewicon idx{{quest.pictures[1]}}"></i>
+      <i class="previewicon idx{{quest.pictures[2]}}"></i>
+      <i class="previewicon idx{{quest.pictures[3]}}"></i>
+      <i class="previewicon idx{{quest.pictures[4]}}"></i>
+    </div>
+
+    <form class="ui small compact form" id="preview">
+        <div class="inline field">
+          <label><i class="previewicon idx{{quest.pictures[0]}}"></i></label>
+          <select ng-model="quest.pictures[0]" ng-options="id | num as text | i18n for (id, text) in constants.previews" class="ui search dropdown"></select>
+        </div>
+        <div class="inline field">
+          <label><i class="previewicon idx{{quest.pictures[1]}}"></i></label>
+          <select ng-model="quest.pictures[1]" ng-options="id | num as text | i18n for (id, text) in constants.previews" class="ui search dropdown"></select>
+        </div>
+        <div class="inline field">
+          <label><i class="previewicon idx{{quest.pictures[2]}}"></i></label>
+          <select ng-model="quest.pictures[2]" ng-options="id | num as text | i18n for (id, text) in constants.previews" class="ui search dropdown"></select>
+        </div>
+        <div class="inline field">
+          <label><i class="previewicon idx{{quest.pictures[3]}}"></i></label>
+          <select ng-model="quest.pictures[3]" ng-options="id | num as text | i18n for (id, text) in constants.previews" class="ui search dropdown"></select>
+        </div>
+        <div class="inline field">
+          <label><i class="previewicon idx{{quest.pictures[4]}}"></i></label>
+          <select ng-model="quest.pictures[4]" ng-options="id | num as text | i18n for (id, text) in constants.previews" class="ui search dropdown"></select>
+        </div>
+
+    </form>
+  </div>
+</div>
+
+

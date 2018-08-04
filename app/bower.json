@@ -1,0 +1,32 @@
+{
+  "name": "mh4u-quest-editor",
+  "version": "1.0.0",
+  "authors": [
+    "dasding"
+  ],
+  "description": "The ultimate MH4U Quest Editor",
+  "main": "index.html",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "source",
+    "src",
+    "tasks",
+    "spec",
+    ".bowerrc",
+    ".gitignore",
+    ".jshintignore",
+    ".jshintrc",
+    "bower.json",
+    "gruntfile.js",
+    "package.json",
+    "README.md"
+  ],
+  "dependencies": {
+    "angular": "~1.4.3",
+    "semantic-ui": "~2.0.3",
+    "angular-route": "~1.4.3"
+  }
+}

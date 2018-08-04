@@ -1,0 +1,11 @@
+.cross {
+    margin-left: -12px;
+    margin-top: -12px;
+}
+
+.areaimg {
+    background-repeat: no-repeat;
+    height: 128px;
+    width: 128px;
+    background-position: -0px -0px;
+}

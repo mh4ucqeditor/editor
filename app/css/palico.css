@@ -1,0 +1,38 @@
+.abilityicon {
+    background-image: url(../img/abilitites.png);
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+}
+
+.abilityicon.idx0 {
+    background-position: -0px -0px;
+}
+.abilityicon.idx1 {
+    background-position: -20px -0px;
+}
+.abilityicon.idx2 {
+    background-position: -40px -0px;
+}
+.abilityicon.idx3 {
+    background-position: -60px -0px;
+}
+.abilityicon.idx4 {
+    background-position: -80px -0px;
+}
+.abilityicon.idx5 {
+    background-position: -100px -0px;
+}
+.abilityicon.idx6 {
+    background-position: -120px -0px;
+}
+.abilityicon.idx7 {
+    background-position: -140px -0px;
+}
+.abilityicon.idx8 {
+    background-position: -160px -0px;
+}
+.abilityicon.idx9 {
+    background-position: -180px -0px;
+}

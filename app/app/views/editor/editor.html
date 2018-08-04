@@ -1,0 +1,97 @@
+<div class="ui grid">
+  <input style="display:none;" id="importSupplies" type="file"/>
+  <input style="display:none" id="exportSupplies" type="file" nwsaveas="supplies.txt" />
+  <input style="display:none;" id="importRewards" type="file"/>
+  <input style="display:none" id="exportRewards" type="file" nwsaveas="rewards.txt" />
+  <div ng-cloak class="sixteen wide column" style="padding-bottom: 0">
+    <!-- Header -->
+    <div class="ui secondary pointing top fixed small menu" style="background-color: whitesmoke">
+      <a class="item" ng-click="gotoLibrary()">
+        <i class="angle left icon"></i>
+        {{_('QUEST_LIBRARY')}}
+        <div class="ui pointing left label" ng-if="lib_length > 0">
+          {{lib_length}}
+        </div>
+      </a>
+      <a class="item nowrap active" data-tab="general">{{_('GENERAL')}}</a>
+      <a class="item nowrap" data-tab="monster">{{_('MONSTERS')}}</a>
+      <a class="item nowrap" data-tab="supply">{{_('SUPPLYBOX')}}</a>
+      <a class="item nowrap" data-tab="rewards">{{_('REWARDS')}}</a>
+      <a class="item nowrap" data-tab="text">{{_('TEXT')}}</a>
+
+      <div class="right menu">
+        <div class="item nowrap">
+          <h4>{{quest.text[text_lang][0] || "Untitled"}}</h4>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px; padding: 14px;">
+      <!-- Tabs -->
+      <div class="ui tab active" data-tab="general">
+        <div ng-include="'app/views/editor/general.html'"></div>
+      </div>
+      <div class="ui tab" data-tab="monster">
+        <div ng-include="'app/views/editor/monster.html'"></div>
+      </div>
+      <div class="ui tab" data-tab="supply">
+        <div ng-include="'app/views/editor/supply.html'"></div>
+      </div>
+      <div class="ui tab" data-tab="rewards">
+        <div class="ui segment" ng-include="'app/views/editor/rewards.html'"></div>
+      </div>
+      <div class="ui tab" data-tab="text">
+        <div class="ui segment" ng-include="'app/views/editor/text.html'"></div>
+      </div>
+      <div style="text-align: right; margin-top: 14px">
+        <div class="ui button" ng-click="gotoLibrary()">{{_('CANCEL')}}</div>
+        <div class="ui blue button" ng-class="{'disabled': forms.general.$invalid || forms.reqobj.$invalid || forms.intruder.$invalid || forms.refills.$invalid || forms.small_conditions.$invalid}" ng-click="save()">{{_('SAVE')}}</div>
+      </div>
+
+    <!-- JSON Output -->
+    <div ng-show="eastereggs.get('devmode')" class="ui segment" style="-webkit-user-select: text;">
+      <div class="ui accordion">
+        <div class="title"><i class="dropdown icon"></i>JSON</div>
+        <div class="content">
+          <pre class="noscroll">{{quest | json: 2}}</pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="loading" class="ui active inverted dimmer" style="height: 100%">
+  <div class="ui text loader">{{_('LOADING')}}</div>
+</div>
+
+<div id="confirmDialog" class="ui small basic modal">
+  <i class="close icon"></i>
+  <div class="header">
+    {{_('UNSAVED_CHANGES')}}
+  </div>
+  <div class="image content">
+    <div class="image">
+      <i class="archive icon"></i>
+    </div>
+    <div class="description">
+      <p>{{_('GO_BACK_TO_LIBRARY')}}</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="three fluid ui inverted buttons">
+      <a class="ui cancel red basic inverted button" href="#/library">
+        <i class="remove icon"></i>
+        {{_('DONT_SAVE')}}
+      </a>
+      <div class="ui blue cancel basic inverted button">
+        <i class="remove icon"></i>
+        {{_('CANCEL')}}
+      </div>
+      <a class="ui cancel green basic inverted button" ng-class="{'disabled': forms.general.$invalid || forms.reqobj.$invalid || forms.intruder.$invalid || forms.refills.$invalid || forms.small_conditions.$invalid}" ng-click="save()">
+        <i class="checkmark icon"></i>
+        {{_('SAVE')}}
+      </a>
+    </div>
+  </div>
+</div>

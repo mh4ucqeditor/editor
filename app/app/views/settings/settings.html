@@ -1,0 +1,84 @@
+<div style="padding: 14px; min-height: 100%;">
+  <div class="ui segment" style="min-height: 100%; text-align: center">
+  <div ng-click="gotoLibrary()" class="ui tiny button" style="position: absolute; top: 6px; left: 6px">
+    <i class="chevron left icon"></i>
+    {{_('BACK')}}
+  </div>
+
+    <h2 class="ui icon header">
+      <i class="previewicon idx21"></i>
+      <div class="content">
+        Monster Hunter 4 Ultimate Quest Editor
+        <div class="sub header">
+          {{config.versionString}}<br>
+          by dasding
+        </div>
+      </div>
+    </h2>
+
+    <h4 style="margin-bottom:0">{{_('SPECIAL_THANKS')}}</h4>
+    <span>Ina</span><br>
+    <span>MH-Slice</span><br>
+    <span>Knorr</span><br>
+    <span>Statyk</span><br>
+
+    <h4 style="margin-bottom:0">{{_('TRANSLATORS')}}</h4>
+    <span>spanish - Hairo, Anthony</span><br>
+    <span>french - Ina</span><br>
+    <span>chinese - lys1030</span><br>
+    <span>italian - AxisXY</span><br>
+    <span>german - dasding</span><br>
+
+    <h4 style="margin-bottom:0">{{_('CONTACT')}}</h4>
+    <span>freenode IRC</span><br>
+    <a ng-click="gui.Shell.openExternal('https://kiwiirc.com/client/irc.freenode.net/?nick=editor?##mh4ucqeditor')" style="cursor: pointer;">##mh4ucqeditor</a>
+    <br><span>reddit</span><br>
+    <a ng-click="gui.Shell.openExternal('https://reddit.com/r/MonsterHunterCustoms')" style="cursor: pointer;">/r/MonsterHunterCustoms</a>
+
+    <h4 style="margin-bottom:0">{{_('DONATION')}}</h4>
+    <!-- <div class="ui input" >
+      <input type="text" disabled value="https://goo.gl/NBYZEB">
+    </div> -->
+    <a href="" ng-click="gui.Shell.openExternal('https://goo.gl/NBYZEB')">Fundrazr</a>
+
+    <h4 class="ui horizontal divider header">
+      <i class="settings icon"></i>
+      {{_('SETTINGS')}}
+    </h4>
+    <form class="ui form">
+      <div class="inline field ui checkbox">
+        <input type="checkbox" ng-model="settings.check_update">
+        <label>{{_('CHECK_UPDATE')}}</label>
+      </div><br>
+      <div class="inline field ui checkbox">
+        <input type="checkbox" ng-model="settings.analytics">
+        <label>{{_('ANALYTICS')}}</label>
+      </div>
+      <div class="inline field">
+        <label>{{_('PUUSH_EMAIL')}}</label>
+        <input type="text" ng-model="settings.puush_email" style="width:300px">
+      </div>
+      <div class="inline field">
+        <label>{{_('PUUSH_API_KEY')}}</label>
+        <input type="text" ng-model="settings.puush_api_key" style="width:300px">
+      </div>
+    </form>
+
+    <div ng-if="eastereggs.unlocked()" style="margin-top: 25px; margin-bottom: 25px;">
+      <h4 class="ui horizontal divider header">
+        <i class="settings icon"></i>
+        {{_('EASTEREGGS')}} ({{eastereggs.unlock_count()}}/{{eastereggs.list.length}})
+      </h4>
+      <form class="ui form">
+        <div class="inline field" ng-repeat="egg in eastereggs.list">
+          <div ng-if="eastereggs.unlocked(egg)" class="inline field ui checkbox">
+            <input type="checkbox" ng-checked="eastereggs.get(egg)" ng-click="eastereggs.toggle(egg)">
+            <label>{{_(egg)}}</label>
+          </div><br>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</div>

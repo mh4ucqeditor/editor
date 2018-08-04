@@ -1,0 +1,186 @@
+v2.1.5
+* added Dunes (Night & Day) as clickable maps (Thanks Knorr306)
+* added missing V. Hollow minimaps
+* added Kelbi Male/Female special option
+* added Cephalos special options
+* added OR mode for objectives
+* added buttons to move monsters between waves
+
+v2.1.4
+* added Frozen Seaway as clickable map
+* added lots of special options for small monster
+* added "ignore player" for felyne and melynx
+* added "large" for Yellow Konchus
+* urls in settings now open in webbrowser
+
+v2.1.3
+* added Sunken Hollow as clickable map
+* added Volcanic Hollow as clickable map
+* added Heavenly Mount as clickable map
+* item search now selects the text when clicking on it
+* added duplicate quests button
+
+v2.1.2
+* added Battlequarts as clickable map
+* added P. Forest as clickable map
+* improved S. Crag map
+
+v2.1.1
+* the proxy will now automatically change the port to the next available if the chosen one is unavailable. this will be indicated with a red backround.
+* added S. Crag as clickable map
+* updated translations
+
+v2.1.0
+* you can now set coordinates for monsters by clicking on the map for the following maps
+  * Arena
+  * Slayground
+  * Ingle Island
+  * Polar Field
+  * Sanctuary
+  * Ancestral Steppe
+* added Pirate Jump Bomb to rewards
+* setting multiwave flag in the background
+* added rust kushala flag (used for winds of discord)
+* minor changes
+
+v2.0.2
+* added slay and capture for multiple waves
+* upped the limit to 14 stars again for the tiny chance of working GQs
+* improved proxy compatibility
+* minor changes
+
+v2.0.1
+* able to read corrupted data without crashing
+
+v2.0.0
+* unrestricted supply and rewards items (except combo books and wystones)
+* added break parts for quest goals (big thanks to MH-Slice)
+* small monster subgroups now editable
+* fixed an extremely rare issue with the proxy
+* added stamina attribute for monsters (not sure it really is)
+* added duplicate button for monsters and items
+* added button for exporting all hosted quests
+* added button for backing up all quests
+* minor fixes
+* translations updated
+* #swag
+
+v1.2.3
+* added special flags for specific monsters
+* added KNOWN special flags:
+  * mushroom types including Mario mushroom for Congalas
+  * permanent enrage for Akantor, Ukanlos and C. Fatalis
+  * Ruby Basarios fire type or status type
+  * Zinogre spawning charged or uncharged
+  * Gogmazios using only explosive oil
+  please let me know if you think you now what the alternate
+  version for a monster does ;)
+* added hunt-a-thon flag, which will respawn monsters faster
+* added a warning about cutscene monsters
+* deliver items are now searchable
+* display amount of carts next to the subtract value
+* showing now all possible ipv4 addresses instead of only the first one
+* italian translation added
+* full item translation for german, french and italia
+* removed debug info
+* removed expedition type (it's not really usable and was added accidently)
+* irc channel now opens in the program when clicking on the channel name
+
+v1.2.2
+* updated translations
+* export subquest rewards fix
+* visual ui bug fix
+v1.2.1
+* hotfix
+v1.2.0
+* palico's are now editable
+* integrated puush upload feature including generation of httprls
+* other minor fixes
+v1.1.8
+* you can now use the subquest as a third main objective (will still show as subquest)
+* renamed apex after awhile to apex afer roar
+* added real apex after awhile
+* added hosting support for palicos (edit support coming in v1.2.0)
+* added import button for mibs/otbs
+* added import button for supplies and rewards
+v1.1.7
+* added option to allow repelling monsters
+* updated translations
+* other minor fixes
+v1.1.6
+* added hosting support for episodic and challenge quests\n* added armor spheres to rewards\n* added adamant pills and more ammo to the supplies
+* upped zenny limit to 120.000
+* quest rank now goes up to 14 stars
+* added library count
+* added item index
+v1.1.5
+* added graven charms and zenith gems
+* removed charm limits
+* translated items into spanish (thanks Anthony)
+* translations updated
+* update process improved
+* other minor fixes\n* added donation url in settings"
+v1.1.4
+* added rotation of monsters
+* you can now edit resupplies
+* fixed some translations
+* some other minor fixes
+1.1.3
+* fixed default values for arena fence attributes
+* fixed break part label for subquest
+* corrected some phrases in spanish
+* minor fixes
+v1.1.2
+* added chinese and french translation
+* fixed a reward search bug
+* automatically set ship integrity flag
+v1.1.1
+* added spanish translation
+* you can now sort by quest id
+* faster reward input
+v1.1.0
+* added german translation
+* added initial fence state, fence duration and fence cooldown
+* fixed subquest flag
+* added enduring charms to rewards
+v1.0.8
+* added search bar to the library
+* added mystery, shining, timeworn and distorted charms to the rewards limiting them to a quantity of 3 and two entries
+* added more unrestricted quest ids to HR
+* moved requirements and objectives to a separate tab
+* renamed stamina to stagger/break resistence
+* improved performance of library view
+v1.0.7
+* added gather rank
+* added arena fence switch
+* readded search dropdowns for edit dialogs
+* added apex after a while
+* added some supplybox items
+* fixed an encoding issue with the proxy
+* fixed break part id
+v1.0.6
+* added quest fee
+* added some items to the supplybox
+* hopefully fixed the ui bugs
+v1.0.5
+* fixed a bug which caused certain quests to crash
+* switched Hunt and Slay as quest objectives
+* removed dropdowns causing ui glitches
+v1.0.4
+* fixed decryption
+* added rage stat for large monster (experimental)
+1.0.3\n* added reference maps to monster edit dialogs
+* added intruder time and chance
+* disabled save when input fields are empty
+* added a note about intruders
+* general improvements
+v1.0.2
+* fixed an ui bug
+* limit large monsters to 5
+* added some supplybox items
+* automatically set multiple hunt type when adding more than one wave
+v1.0.1
+* fixed intruder flag
+* a quest from scratch has now editable rewards
+* time now goes up to 255
+* fixed a bug when inserting more than 5 monsters

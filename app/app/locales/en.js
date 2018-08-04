@@ -1,0 +1,250 @@
+ locale_en = {
+    // Common
+    'EDIT': 'Edit',
+    'CANCEL': 'Cancel',
+    'SAVE': 'Save',
+    'SAVE_AS': 'Save As',
+    'YES': 'Yes',
+    'NO': 'No',
+    'OK': 'Ok',
+    'MONSTER': 'Monster',
+    'MONSTERS': 'Monsters',
+    'LOADING': 'Loading',
+    'QUANTITY': 'Quantity',
+    'QUANTITY_SHORT': 'Qty',
+    'RESPAWNS': 'Respawns',
+    'CHANCE': 'Chance',
+    'DUPLICATE': 'Copy',
+
+    // Update Dialog
+    'SKIP': 'Skip',
+    'DOWNLOAD': 'Download',
+    'DOWNLOADING_UPDATE': 'Downloading Update',
+    'UPDATE_AVAILABLE': 'Update Available',
+
+    // Upload View
+    'UPLOAD': 'Upload',
+    'PUUSH_LOGIN': 'Puush Login',
+    'PUUSH_UPLOAD': 'Puush Upload',
+    'EMAIL': 'Email',
+    'PASSWORD': 'Password',
+    'LOGIN': 'Login',
+    'INVALID_LOGIN': 'Invalid Login',
+    'REGION': 'Region',
+    'LANGUAGE': 'Language',
+    'UPLOADING': 'Uploading',
+    'FILES': 'Files',
+    'FILE': 'File',
+    'SAVE_RULES': 'Save Rules',
+    'URL': 'URL',
+
+    'UPLOAD_MSG': 'This will upload all selected (hosted) quests to puush and generate a httprls file.',
+    'UPLOAD_ERROR': 'An error occured while uploading. Please try again later.',
+
+    // Settings View
+    'BACK': 'Back',
+    'SPECIAL_THANKS': 'Special Thanks',
+    'TRANSLATORS': 'Translators',
+    'CONTACT': 'Contact',
+    'SETTINGS': 'Settings',
+    'DONATION': 'Donation',
+    'CHECK_UPDATE': 'Check for updates on startup',
+    'ANALYTICS': 'Send anonymous usage stats',
+    'PUUSH_EMAIL': 'Puush Email',
+    'PUUSH_API_KEY': 'Puush API Key',
+
+    'EASTEREGGS': 'Unlockables',
+    'rainbows': 'Rainbow Font',
+    'darkmode': 'Dark BG',
+    'redmode': 'Red BG',
+    'abstract': 'Abstract BG (Artwork by AYMCREATIONS)',
+    'bbq': 'BBQ (Artwork by Zedotagger)',
+    'konchu': 'Konchu (Artwork by NCH85)',
+    'dancingjho': 'Dancing Jho (Artwork by NCH85)',
+
+
+    // Library View
+    'CQ_PROXY': 'Custom Quest Proxy',
+    'START_PROXY': 'Start Proxy',
+    'STOP_PROXY': 'Stop Proxy',
+    'IP': 'IP Address',
+    'PORT': 'Port',
+    'QUEST_LIBRARY': 'Quest Library',
+    'SEARCH': 'Search...',
+    'HOST': 'Host',
+    'ID': 'ID',
+    'QUEST_TITLE': 'Quest Title / Goal',
+    'ACTIONS': 'Actions',
+    'EXPORT': 'Export',
+    'DELETE': 'Delete',
+    'NEW_QUEST': 'New Quest',
+    'DELETE_ALL': 'Delete All',
+    'IMPORT': 'Import',
+    'BACKUP': 'Backup',
+    'EXPORT_SELECTED': 'Export Selected',
+
+    // Palico Library
+    'PALICO_LIBRARY': 'Palico Library',
+    'FORTE': 'Forte',
+    'ABILITY': 'Ability',
+    'NAME': 'Name',
+    'OWNER': 'Owner',
+    'SHOUT': 'Greeting',
+    'LEVEL': 'Level',
+    'TEAM_ATTACK': 'Team Attack',
+    'SKILLS': 'Skills',
+    'SKILL': 'Skill',
+    'SIGNATURE_SKILL': 'Signature Skill',
+    'APPEARANCE': 'Appearance',
+    'COAT': 'Coat',
+    'COAT_COLOR': 'Coat Color',
+    'CLOTHING': 'Clothing',
+    'CLOTHING_COLOR': 'Cothing Color',
+    'EYE_SHAPE': 'Eye Shape',
+    'EARS': 'Ears',
+    'TAIL': 'Tail',
+    'VOICE': 'Voice',
+
+    // Export Dialog
+    'CHOOSE_ENCRYPTION': 'Choose Encryption...',
+    'UNENCRYPTED': 'Unencrypted',
+    'US_ENCRYPTION': 'US/EU encrypted',
+    'JP_ENCRYPTION': 'JP encrypted',
+    'KR_ENCRYPTION': 'KR encrypted',
+    'TW_ENCRYPTION': 'TW encrypted',
+    'GENERATE_DLC_INFO': 'Generate DLC_EventQuestInfo (will be named mXXXXX.txt)',
+    'EXPORT_SELECTED_MSG': 'This will export all selected/hosted quests and write them into the specified folder.',
+
+    // Delete All Dialog
+    'DELETE_QUEST_LIBRARY': 'Delete complete quest library',
+    'DELETE_QUEST_LIBRARY_MSG': 'Do you really want to delete your complete quest library?',
+
+    // NO HOSTED Dialog
+    'NO_QUEST_HOSTED': 'No quests are hosted',
+    'NO_QUEST_HOSTED_MSG': 'Please select the Quests which should be delivered by the proxy by ticking the "Host" checkbox on the left.',
+    'NO_QUEST_HOSTED_RESTART': "You don't have to restart the proxy when making changes.",
+
+    // Editor View
+    // Notices
+    'IMPORTANT': 'Important!',
+    'QUEST_NAG' : 'The monsters described in the quest ID field are the only ones allowed in the large monster list. If you want to freely choose, use an ID listed as "Unrestricted", those quests ids wont replace any official DLC and can only be deleted by deleting the extra data.',
+    'INTRUDER_NAG1': 'An intruder will ONLY work with a single monster in the large monster tab. Small monsters are unaffected by the restrictions of the Quest ID. If you place a large Monster in it, the following bugs will happen: ',
+    'INTRUDER_NAG2': '- a chance of the game crashing when leaving area',
+    'INTRUDER_NAG3': '- monster will reset when all hunters leave the area',
+    'INTRUDER_NAG4': '- for hunters that left and reentered the area broken parts will appear unbroken',
+    'CUTSCENE_NAG': "This won't work. The selected monster does trigger a cutscene and requires his original map. You can place it any other wave except the first or in the other monster lists though.",
+    'SMALL_MONSTER_NAG': "Wave 1 will spawn by default. The game will only proceed to the next wave of small monsters for hunters which change areas after the condition was met.",
+
+    // Tabs
+    'GENERAL': 'General',
+    'SUPPLYBOX': 'Supply Box',
+    'REWARDS': 'Rewards',
+    'TEXT': 'Text',
+
+    // Confirm Dialog
+    'UNSAVED_CHANGES': 'Unsaved Changes',
+    'GO_BACK_TO_LIBRARY': 'Do you really want to go back to the quest library without saving?',
+    'DONT_SAVE': "Don't Save",
+
+    // General Tab
+    'HEADER': 'Header',
+    'REQUIREMENTS_OBJECTIVES': 'Requirements & Objectives',
+    'PREVIEW': 'Preview',
+
+    'QUEST_ID': 'Quest ID',
+    'QUEST_TYPE': 'Quest Type',
+    'MAP': 'Map',
+    'PLAYER_SPAWN': 'Player Spawn',
+    'QUEST_TIME': 'Quest Time',
+    'QUEST_RANK': 'Quest Rank',
+    'GATHER_RANK': 'Gather Rank',
+    'CARVE_RANK': 'Carve Rank',
+    'MONSTER_AI_RANK': 'Monster AI Rank',
+    'QUEST_FEE': 'Quest Fee',
+    'ARENA_FENCE': 'Arena Fence',
+    'FENCE_STATE': 'Initial State',
+    'FENCE_UPTIME': 'Fence Uptime',
+    'FENCE_COOLDOWN': 'Fence Cooldown',
+
+    'ZENNY': 'Zenny',
+    'ZENNY_SUBTRACT': 'Zenny Subtracted at Cart',
+    'CARTS': 'Carts',
+    'ZENNY_SUBQUEST': 'Zenny Subquest',
+
+    'HRP': 'HRP',
+    'HRP_SUBTRACT': 'HRP Subtracted at Fail',
+    'HRP_SUBQUEST': 'HRP Subquest',
+
+    'QUEST_REQUIREMENTS': 'Quest Requirements',
+    'QUEST_OBJECTIVES': 'Quest Objectives',
+    'FIRST_MAIN_OBJECTIVE': 'First Main Objective',
+    'SECOND_MAIN_OBJECTIVE': 'Second Main Objective',
+    'SUB_OBJECTIVE': 'Subquest Objective',
+    'TYPE': 'Type',
+    'ITEM_ID': 'Item ID',
+    'BREAK_PART': 'Break Part',
+
+    'EXTRA': 'Extra',
+    'REPEL': 'Repel',
+    'ALLOW_REPEL': 'Allow Repel',
+    'HUNTATHON': 'Hunt-a-thon',
+    'SUBQUEST_AS': 'Subquest as',
+    'SUBQUEST_AS_MAIN': 'Subquest as Main Objective',
+    'RKUSHALA_FLAG': 'Rusted Kushala Flag',
+    'OBJ_OR_FLAG': "Fulfill either Objective",
+
+    // Monster Tab
+    'LARGE_MONSTERS': 'Large Monsters',
+    'SMALL_MONSTERS': 'Small Monsters',
+    'UNSTABLE_MONSTERS': 'Unstable Monsters',
+
+    'SHARED_STATS': 'Shared Stats',
+    'INTRUDER_TIME': 'Intruding time in minutes',
+    'INTRUDER_CHANCE': 'Chance of an intruder appearing',
+
+    'WAVE': 'Wave',
+    'ATTACK': 'Attack',
+    'HEALTH': 'Health',
+    'SIZE': 'Size',
+    'SIZE_VAR': 'Size Variation',
+    'FRENZY': 'Frenzy',
+    'AREA': 'Area',
+    'CHANCE_LONG': 'Chance to appear',
+    'ROTATION': 'Rotation',
+    'SPECIAL': 'Special',
+    'RESISTENCE': 'Break Res.',
+    'RESISTENCE_LONG': 'Break Resistance',
+    'STATUS_RES': 'Status Res.',
+    'STATUS_RES_LONG': 'Status Resistance',
+    'STAMINA': 'Stamina',
+    'STAMINA_LONG': 'Initial Stamina',
+
+    'ADD_MONSTER': 'Add Monster',
+    'ADD_WAVE': 'Add Wave',
+
+    'SPAWN_CONDITION': 'Spawn Condition',
+
+    // Supply & Rewards Tab
+    'INITIAL_SUPPLIES': 'Initial Supplies',
+    'ITEM': 'Item',
+    'ADD_ITEM': 'Add Item',
+    'MAIN_REWARD_A': 'Main Reward A',
+    'MAIN_REWARD_B': 'Main Reward B',
+    'SUB_REWARD': 'Subquest Reward',
+
+    // Text Tab
+    'CLIENT': 'Client',
+    'MAIN_GOAL': 'Main Goal',
+    'SUB_GOAL': 'Sub Goal',
+    'FAILURE': 'Failure',
+    'DESCRIPTION': 'Description',
+    'MAIN_MONSTER': 'Main Monster',
+    'TEXT_TOOLTIP': 'This will copy the current text to all other languages.',
+
+    // Supply Refills
+    'REFILL_SUPPLIES': 'Refill Supplies',
+    'ADD_SUPPLY_BOX': 'Add Supply Box',
+    'CONDITION': 'Condition',
+    'REFILLS': 'Refills',
+    'REFILL': 'Refill'
+};

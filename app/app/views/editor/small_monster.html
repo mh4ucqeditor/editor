@@ -1,0 +1,241 @@
+<div class="ui error message" ng-if="config.userSettings.get('small_monster_nag')">
+  <i ng-click="config.userSettings.set('small_monster_nag', false);" class="close icon"></i>
+  <div class="header">
+    {{_('IMPORTANT')}}
+  </div>
+  <p>{{_('SMALL_MONSTER_NAG')}}</p>
+</div>
+
+<form class="ui form" id="small_conditions" name="forms.small_conditions" style="margin-bottom: 20px">
+  <h4 class="ui dividing header">{{_('SPAWN_CONDITION')}} {{_('WAVE')}} 2</h4>
+  <div class="four fields">
+    <!-- <div class="field" ng-class="{'error': forms.small_conditions.condition1_group.$invalid}">
+      <label>{{_('WAVE')}}</label>
+      <select disabled name="condition1_group" ng-model="quest.small_monster_conditions[0].group" ng-options="id | num as text | i18n for (id, text) in constants.small_monster_groups" class="ui dropdown" required></select>
+    </div> -->
+    <div class="field" ng-class="{'error': forms.small_conditions.condition1_type.$invalid}">
+      <label>{{_('CONDITION')}}</label>
+      <select name="condition1_type" ng-model="quest.small_monster_conditions[0].type" ng-options="id | num as text | i18n for (id, text) in constants.small_monster_conditions" ng-change="reload_dropdown()" class="ui dropdown" required></select>
+    </div>
+    <div class="field" ng-if="quest.small_monster_conditions[0].type == 1" ng-class="{'error': forms.small_conditions.condition1_target.$invalid}">
+      <label>{{_('MONSTER')}}</label>
+      <select name="condition1_target" ng-model="quest.small_monster_conditions[0].target" ng-options="id | num as text | i18n for (id, text) in constants.monsters_with_none" class="ui search dropdown monster" required></select>
+    </div>
+    <div class="field" ng-show="quest.small_monster_conditions[0].type == 2 || quest.small_monster_conditions[0].type == 4">
+      <label>{{_('ITEM')}}</label>
+      <div id="condition1_search" class="ui search">
+        <div class="ui icon input">
+          <input class="prompt" type="text" placeholder="Search Items..." value="{{constants.items[quest.small_monster_conditions[0].target] | i18n}}">
+          <i class="search icon"></i>
+        </div>
+        <div class="results"></div>
+      </div>
+    </div>
+    <div class="field" ng-show="quest.small_monster_conditions[0].type !== 0" ng-class="{'error': forms.small_conditions.condition1_qty.$invalid}">
+      <label>{{_('QUANTITY')}}</label>
+      <input type="number" name="condition1_qty" ng-model="quest.small_monster_conditions[0].qty" required>
+    </div>
+  </div>
+
+  <h4 class="ui dividing header" style="margin-top: 0;">{{_('SPAWN_CONDITION')}} {{_('WAVE')}} 3</h4>
+  <div class="four fields">
+    <!-- <div class="field" ng-class="{'error': forms.small_conditions.condition2_group.$invalid}">
+      <label>{{_('WAVE')}}</label>
+      <select name="condition2_group" ng-model="quest.small_monster_conditions[1].group" ng-options="id | num as text | i18n for (id, text) in constants.small_monster_groups" class="ui dropdown" required></select>
+    </div> -->
+    <div class="field" ng-class="{'error': forms.small_conditions.condition2_type.$invalid}">
+      <label>{{_('CONDITION')}}</label>
+      <select name="condition2_type" ng-model="quest.small_monster_conditions[1].type" ng-options="id | num as text | i18n for (id, text) in constants.small_monster_conditions" ng-change="reload_dropdown()" class="ui dropdown" required></select>
+    </div>
+    <div class="field" ng-if="quest.small_monster_conditions[1].type == 1" ng-class="{'error': forms.small_conditions.condition2_target.$invalid}">
+      <label>{{_('MONSTER')}}</label>
+      <select name="condition2_target" ng-model="quest.small_monster_conditions[1].target" ng-options="id | num as text | i18n for (id, text) in constants.monsters_with_none" class="ui search dropdown monster" required></select>
+    </div>
+    <div class="field" ng-show="quest.small_monster_conditions[1].type == 2 || quest.small_monster_conditions[1].type == 4">
+      <label>{{_('ITEM')}}</label>
+      <div id="condition2_search" class="ui search">
+        <div class="ui icon input">
+          <input class="prompt" type="text" placeholder="Search Items..." value="{{constants.items[quest.small_monster_conditions[1].target] | i18n}}">
+          <i class="search icon"></i>
+        </div>
+        <div class="results"></div>
+      </div>
+    </div>
+    <div class="field" ng-show="quest.small_monster_conditions[1].type !== 0" ng-class="{'error': forms.small_conditions.condition2_qty.$invalid}">
+      <label>{{_('QUANTITY')}}</label>
+      <input type="number" name="condition2_qty" ng-model="quest.small_monster_conditions[1].qty" required>
+    </div>
+  </div>
+
+</form>
+
+<div ng-repeat="wave in quest.small_monster_table">
+  <h2 class="ui dividing header">
+    <div class="content">
+      <i class="tiny close icon" ng-click="empty_small_wave($index)"></i>
+    </div>
+    {{_('WAVE')}} {{$index + 1}}
+  </h2>
+  <div class="ui grid two columns" style="padding-bottom: 10px;">
+    <div class="column monstercard" ng-repeat="monster in wave[0]">
+      <div class="ui items segment">
+        <div class="ui item">
+          <div class="ui image">
+            <i class="previewicon idx{{constants.monsterid_to_previewid[monster.monster_id]}}"></i>
+          </div>
+          <div class="content">
+            <div class="header"><span ng-show="monster.qty > 1">{{monster.qty}}x</span> {{constants.monsters[monster.monster_id] | i18n}}</div>
+            <div class="meta">
+              <div >
+                <div style="float: left; width: 120px">
+                  <span>
+                    {{_('ATTACK')}}: {{quest.small_meta.atk}}<br>
+                    {{_('HEALTH')}}: {{quest.small_meta.hp}}<br>
+                    {{_('RESISTENCE')}}: {{quest.small_meta.break_res}}<br>
+                    {{_('STAMINA')}}: {{quest.small_meta.stamina}}
+                  </span>
+                </div>
+                <div style="float: left">
+                  <span>{{_('SIZE')}}: {{quest.small_meta.size}}%</span><br>
+                  <span>{{_('FRENZY')}}: {{constants.frenzy[monster.infection]}}</span><br>
+                  <span ng-show="constants.special_mod[monster.monster_id]">{{_('SPECIAL')}}: {{constants.special_mod[monster.monster_id][monster.special]}}</span>
+                </div>
+                <div style="float:right">
+                    <div ng-show="$parent.$index > 0" class="ui tiny compact button" ng-click="move_small_monster_up($parent.$index, $index)"><i class="arrow up icon"></i></div><br>
+                    <div ng-show="$parent.$index < 2" class="ui tiny compact button" ng-click="move_small_monster_down($parent.$index, $index)" style="margin-top: 3px"><i class="arrow down icon"></i></div>
+                </div>
+              </div>
+            </div>
+            <div class="description" style="clear: both">
+              <p></p>
+            </div>
+            <div class="extra" style="  margin-left: -50px;margin-top: 15px;">
+              {{_('AREA')}} {{monster.area}}
+              ({{monster.x | round_float}}, {{monster.y | round_float}}, {{monster.z | round_float}})
+            </div>
+          </div>
+          <div style="position: absolute; bottom: 8px; right: 4px">
+            <div class="ui tiny compact button" ng-click="duplicate_small_monster($parent.$index, $index)">{{_('DUPLICATE')}}</div>
+            <div class="ui tiny compact button" ng-click="edit_small_monster($parent.$index, $index)"><i class="edit icon"></i>{{_('EDIT')}}</div>
+          </div>
+          <div style="cursor: pointer; position: absolute; top: 4px; right: 4px" ng-click="remove_small_monster($parent.$index, $index)">
+            <i class="close icon"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="column monstercard" style="min-height: 136px; text-align: center; padding-top: 55px;">
+        <div flex ng-click="add_small_monster($index)" class="ui tiny circular green button">
+          <i class="plus icon"></i>
+          {{_('ADD_MONSTER')}}
+        </div>
+      </div>
+  </div>
+</div>
+
+<div id="smallmonstermodal" class="ui small modal">
+  <div class="ui header" style="padding-top: 10px;padding-bottom: 4px;">
+    <i class="previewicon idx{{constants.monsterid_to_previewid[current_edit_small_monster.monster_id]}}"></i>
+    <div class="content">
+      {{constants.monsters[current_edit_small_monster.monster_id] | i18n}}
+    </div>
+  </div>
+  <div class="content">
+    <img ng-if="[1,2,3,4,5,6,7,8,9,10,11,12,14,15,16,17,18,19,20,21].indexOf(quest.map_id) >= 0" ng-src="img/maps/map{{quest.map_id}}.png" style="position: absolute; top: 10px; right: 142px">
+    <div ng-if="constants.map_coordinates[quest.map_id][current_edit_small_monster.area]"
+        class="areaimg"
+        style="position: absolute; top: 10px; right: 14px; background-image: url(img/areas/m{{quest.map_id | doublenum}}a{{current_edit_small_monster.area | doublenum}}_ID.png);">
+          <img src="img/cross.png" class="cross" style="padding-left: {{area_x_small()}}px; padding-top: {{area_z_small()}}px" draggable="false">
+    </div>
+    <img ng-if="constants.map_coordinates[quest.map_id][current_edit_small_monster.area]"
+      ng-click="set_coords_small($event)"
+      src="img/area_overlay.png"
+      style="position: absolute; top: 10px; right: 14px; z-index:1000" draggable="false">
+
+    <form class="ui small form" name="editform">
+      <div class="two fields">
+        <div class="field">
+          <label>{{_('MONSTER')}}</label>
+          <select ng-change="reload_special()" ng-model="$parent.$parent.current_edit_small_monster.monster_id" ng-options="id | num as text | i18n for (id, text) in constants.monsters" class="ui search dropdown"></select>
+        </div>
+      </div>
+
+      <div class="three fields">
+        <div class="field" ng-class="{'error': editform.qty.$invalid}">
+          <label>{{_('RESPAWNS')}}</label>
+          <input name="qty" ng-model="$parent.$parent.current_edit_small_monster.qty" type="number" min="1" max="255" required>
+        </div>
+        <div class="field" ng-class="{'error': editform.area.$invalid}">
+          <label>{{_('AREA')}}</label>
+          <input name="area" ng-model="$parent.$parent.current_edit_small_monster.area" type="number" min="0" max="20" required>
+        </div>
+        <div class="field">
+          <label>{{_('FRENZY')}}</label>
+          <select ng-model="$parent.$parent.current_edit_small_monster.infection" ng-options="id | num as text | i18n for (id, text) in constants.frenzy" class="ui search dropdown"></select>
+        </div>
+      </div>
+
+      <div class="four fields">
+        <div class="field" ng-class="{'error': editform.x.$invalid}">
+          <label>X</label>
+          <input name="x" ng-model="$parent.$parent.current_edit_small_monster.x" ng-model-options="{debounce: 300}" type="number" required>
+        </div>
+        <div class="field" ng-class="{'error': editform.y.$invalid}">
+          <label>Y</label>
+          <input name="y" ng-model="$parent.$parent.current_edit_small_monster.y" ng-model-options="{debounce: 300}" type="number" required>
+        </div>
+        <div class="field" ng-class="{'error': editform.z.$invalid}">
+          <label>Z</label>
+          <input name="z" ng-model="$parent.$parent.current_edit_small_monster.z" ng-model-options="{debounce: 300}" type="number" required>
+        </div>
+        <div class="field" ng-class="{'error': editform.y_rot.$invalid}">
+          <label>{{_('ROTATION')}}</label>
+          <input name="y_rot" ng-model="$parent.$parent.current_edit_small_monster.y_rot" type="number" min="0" max="4294967295" required>
+        </div>
+      </div>
+
+      <h4 class="ui dividing header">{{_('SHARED_STATS')}}</h4>
+      <div class="four fields">
+        <div class="field" ng-class="{'error': editform.atk.$invalid}">
+          <label>{{_('ATTACK')}}</label>
+          <input name="atk" ng-model="$parent.$parent.current_edit_small_meta.atk" type="number" min="0" max="255" required>
+        </div>
+        <div class="field" ng-class="{'error': editform.hp.$invalid}">
+          <label>{{_('HEALTH')}}</label>
+          <input name="hp" ng-model="$parent.$parent.current_edit_small_meta.hp" type="number" min="0" max="255" required>
+        </div>
+        <div class="field" ng-class="{'error': editform.break_res.$invalid}">
+          <label>{{_('RESISTENCE_LONG')}}</label>
+          <input name="break_res" ng-model="$parent.$parent.current_edit_small_meta.break_res" type="number" min="0" max="255" required>
+        </div>
+        <div class="field" ng-class="{'error': editform.stamina.$invalid}">
+          <label>{{_('STAMINA')}}</label>
+          <input name="stamina" ng-model="$parent.$parent.current_edit_small_meta.stamina" type="number" min="0" max="4" required>
+        </div>
+      </div>
+
+      <div class="three fields">
+        <div class="field" ng-class="{'error': editform.size.$invalid}">
+          <label>{{_('SIZE')}}</label>
+          <input name="size" ng-model="$parent.$parent.current_edit_small_meta.size" type="number" min="0" max="65535" required>
+        </div>
+      </div>
+
+      <div class="three fields" ng-if="constants.special_mod[$parent.$parent.current_edit_small_monster.monster_id]">
+        <div class="field" ng-class="{'error': editform.special.$invalid}">
+          <label>{{_('SPECIAL')}}</label>
+          <select name="special" ng-model="$parent.$parent.current_edit_small_monster.special" ng-options="id | num as text | i18n for (id, text) in constants.special_mod[$parent.$parent.current_edit_small_monster.monster_id]" class="ui special scrolling dropdown" required></select>
+        </div>
+      </div>
+
+    </form>
+    <!-- <pre>{{current_edit_small_monster | json: 2}}</pre>
+    <pre>{{current_edit_small_meta | json: 2}}</pre> -->
+  </div>
+
+  <div class="actions">
+    <div class="ui cancel button">{{_('CANCEL')}}</div>
+    <div ng-click="save_edit_small_monster();" class="ui cancel blue button" ng-class="{'disabled': editform.$invalid}">{{_('SAVE')}}</div>
+  </div>
+</div>
+

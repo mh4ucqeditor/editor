@@ -1,0 +1,40 @@
+<form class="ui form" id="text_edit">
+  <div class="ui compact scrolling dropdown" style="position: absolute; right: 10px; top: -5px;background-color: transparent !important">
+    <input type="hidden" name="country" value="0">
+    <div class="default text"></div>
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <div ng-click="select_lang(0)" class="item" data-value="0"><i class="us flag"></i>English</div>
+      <div ng-click="select_lang(1)" class="item" data-value="1"><i class="fr flag"></i>French</div>
+      <div ng-click="select_lang(2)" class="item" data-value="2"><i class="es flag"></i>Spanish</div>
+      <div ng-click="select_lang(3)" class="item" data-value="3"><i class="de flag"></i>German</div>
+      <div ng-click="select_lang(4)" class="item" data-value="4"><i class="it flag"></i>Italian</div>
+    </div>
+  </div>
+
+  <div class="three fields">
+    <div class="field"><label>{{_('QUEST_TITLE')}}</label><input type="text" ng-model="quest.text[text_lang][0]"></div>
+    <div class="field"><label>{{_('CLIENT')}}</label><input type="text" ng-model="quest.text[text_lang][5]"></div>
+  </div>
+
+  <div class="three fields">
+    <div class="field"><label>{{_('MAIN_GOAL')}}</label><textarea class="fixed" rows="2" ng-model="quest.text[text_lang][1]"></textarea></div>
+    <div class="field"><label>{{_('SUB_GOAL')}}</label><textarea class="fixed" rows="2" ng-model="quest.text[text_lang][6]"></textarea></div>
+    <div class="field"><label>{{_('FAILURE')}}</label><textarea class="fixed" rows="2" ng-model="quest.text[text_lang][2]"></textarea></div>
+  </div>
+
+  <div class="three fields">
+    <div class="field"><label>{{_('DESCRIPTION')}}</label><textarea class="fixed" rows="8" cols="27" ng-model="quest.text[text_lang][3]"></textarea></div>
+    <div class="field"><label>{{_('MAIN_MONSTER')}}</label><textarea class="fixed" rows="2" ng-model="quest.text[text_lang][4]"></textarea></div>
+  </div>
+
+
+</form>
+<div ng-click="copy_lang()" class="ui icon labeled button tooltip" style="position: absolute; bottom: 14px; right: 11px" data-position="top center" data-content="{{_('TEXT_TOOLTIP')}}">
+    <i class="arrow circle outline right icon" style="font-size: 1.3em"></i>
+    <i class="us flag" style="margin-left: 6px"></i>
+    <i class="fr flag"></i>
+    <i class="es flag"></i>
+    <i class="de flag"></i>
+    <i class="it flag" style="margin-right: 0"></i>
+  </div>

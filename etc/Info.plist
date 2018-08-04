@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+    <string>com.dasding.mh4u.editor.cq</string>
+    <key>CFBundleDisplayName</key>
+	<string>MH4U CQ Editor</string>
+    <key>CFBundleName</key>
+    <string>MH4U CQ Editor</string>
+    <key>CFBundleShortVersionString</key>
+    <string>2.1.6</string>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+    <key>NSHumanReadableCopyright</key>
+    <string>by dasding</string>
+
+    <key>CFBundleDevelopmentRegion</key>
+    <string>en</string>
+	<key>CFBundleDocumentTypes</key>
+    <array/>
+	<key>CFBundleExecutable</key>
+	<string>nwjs</string>
+	<key>CFBundleIconFile</key>
+	<string>nw.icns</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>LSFileQuarantineEnabled</key>
+	<false/>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.6.0</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<key>NSSupportsAutomaticGraphicsSwitching</key>
+	<true/>
+	<key>SCMRevision</key>
+	<string>4997442d98d80e4cacb1d81ce90d0a45ccd4b185</string>
+	<key>UTExportedTypeDeclarations</key>
+	<array/>
+</dict>
+</plist>

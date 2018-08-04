@@ -1,0 +1,165 @@
+<div class="ui grid two columns">
+
+  <div class="column" ng-if="quest.loot_a.length > 0">
+    <h4>
+      {{_('MAIN_REWARD_A')}}
+      <div class="ui tiny compact blue button" ng-click="importRewards('a')" style="font-size: 12px;padding: 8px;margin-left: 10px;">{{_('IMPORT')}}</div>
+      <div class="ui tiny compact teal button" ng-click="exportRewards('a')" style="font-size: 12px;padding: 8px;margin-left: 10px;">{{_('EXPORT')}}</div>
+    </h4>
+    <table class="ui small red very compact striped table">
+     <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>{{_('ITEM')}}</th>
+          <th>{{_('QUANTITY_SHORT')}}</th>
+          <th>{{_('CHANCE')}}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="(item_idx, item) in quest.loot_a[0].items">
+          <td class="collapsing" ng-click="quest.loot_a[0].items.splice($index, 1)" style="cursor: pointer;">
+            <i class="close icon"></i>
+          </td>
+          <td class="collapsing">{{$index + 1}}</td>
+          <td>{{constants.items[item.item_id] | i18n}}</td>
+          <td class="collapsing">x{{item.qty}}</td>
+          <td class="collapsing">{{item.chance}}%</td>
+          <td class="collapsing">
+            <div class="ui tiny compact button" ng-click="duplicate_loot_item('a', $index)">{{_('DUPLICATE')}}</div>
+            <div class="ui tiny compact button" ng-click="edit_loot_item('a', $index)">{{_('EDIT')}}</div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="6" style="text-align: center">
+            <div class="ui tiny circular green button" ng-click="quest.loot_a[0].items.push({item_id: 8, qty: 1, chance: 10})">
+              <i class="plus icon"></i>
+              {{_('ADD_ITEM')}}
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="column" ng-if="quest.loot_b.length > 0">
+    <h4>
+      {{_('MAIN_REWARD_B')}}
+      <div class="ui tiny compact blue button" ng-click="importRewards('b')" style="font-size: 12px;padding: 8px;margin-left: 10px;">{{_('IMPORT')}}</div>
+      <div class="ui tiny compact teal button" ng-click="exportRewards('b')" style="font-size: 12px;padding: 8px;margin-left: 10px;">{{_('EXPORT')}}</div>
+    </h4>
+    <table class="ui small red very compact striped table">
+     <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>{{_('ITEM')}}</th>
+          <th>{{_('QUANTITY_SHORT')}}</th>
+          <th>{{_('CHANCE')}}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="(item_idx, item) in quest.loot_b[0].items">
+          <td class="collapsing" ng-click="quest.loot_b[0].items.splice($index, 1)" style="cursor: pointer;">
+            <i class="close icon"></i>
+          </td>
+          <td class="collapsing">{{$index + 1}}</td>
+          <td>{{constants.items[item.item_id] | i18n}}</td>
+          <td class="collapsing">x{{item.qty}}</td>
+          <td class="collapsing">{{item.chance}}%</td>
+          <td class="collapsing">
+            <div class="ui tiny compact button" ng-click="duplicate_loot_item('b', $index)">{{_('DUPLICATE')}}</div>
+            <div class="ui tiny compact button" ng-click="edit_loot_item('b', $index)">{{_('EDIT')}}</div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="6" style="text-align: center">
+            <div class="ui tiny circular green button" ng-click="quest.loot_b[0].items.push({item_id: 8, qty: 1, chance: 10})">
+              <i class="plus icon"></i>
+              {{_('ADD_ITEM')}}
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="column" ng-if="quest.loot_c.length > 0">
+    <h4>
+      {{_('SUB_REWARD')}}
+      <div class="ui tiny compact blue button" ng-click="importRewards('c')" style="font-size: 12px;padding: 8px;margin-left: 10px;">{{_('IMPORT')}}</div>
+      <div class="ui tiny compact teal button" ng-click="exportRewards('c')" style="font-size: 12px;padding: 8px;margin-left: 10px;">{{_('EXPORT')}}</div>
+    </h4>
+    <table class="ui small red very compact striped table">
+     <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>{{_('ITEM')}}</th>
+          <th>{{_('QUANTITY_SHORT')}}</th>
+          <th>{{_('CHANCE')}}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="(item_idx, item) in quest.loot_c[0].items">
+          <td class="collapsing" ng-click="quest.loot_c[0].items.splice($index, 1)" style="cursor: pointer;">
+            <i class="close icon"></i>
+          </td>
+          <td class="collapsing">{{$index + 1}}</td>
+          <td>{{constants.items[item.item_id] | i18n}}</td>
+          <td class="collapsing">x{{item.qty}}</td>
+          <td class="collapsing">{{item.chance}}%</td>
+          <td class="collapsing">
+            <div class="ui tiny compact button" ng-click="duplicate_loot_item('c', $index)">{{_('DUPLICATE')}}</div>
+            <div class="ui tiny compact button" ng-click="edit_loot_item('c', $index)">{{_('EDIT')}}</div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="6" style="text-align: center">
+            <div class="ui tiny circular green button" ng-click="quest.loot_c[0].items.push({item_id: 8, qty: 1, chance: 10})">
+              <i class="plus icon"></i>
+              {{_('ADD_ITEM')}}
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+<div id="lootmodal" class="ui small modal">
+  <div class="content">
+    <form class="ui small form" name="looteditform">
+      <div class="fields">
+        <div class="ten wide field" ng-class="{'error': looteditform.item_id.$invalid}">
+          <label>{{_('ITEM')}}</label>
+          <div class="ui search" id="deliversearch">
+            <div class="ui icon input">
+              <input class="prompt" type="text" placeholder="Search Items..." select-on-click>
+              <i class="search icon"></i>
+            </div>
+            <div class="results"></div>
+          </div>
+        </div>
+        <div class="three wide field" ng-class="{'error': looteditform.qty.$invalid}">
+          <label>{{_('QUANTITY')}}</label>
+          <input name="qty" ng-model="$parent.current_edit_loot_item.qty" type="number" min="0" max="99" required>
+        </div>
+        <div class="three wide field" ng-class="{'error': looteditform.chance.$invalid}">
+          <label>{{_('CHANCE')}}</label>
+          <input name="chance" ng-model="$parent.current_edit_loot_item.chance" type="number" min="0" max="100" required>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="actions">
+    <div class="ui cancel button">{{_('CANCEL')}}</div>
+    <div ng-click="save_edit_loot_item();" class="ui cancel blue button" ng-class="{'disabled': looteditform.$invalid || $parent.current_edit_loot_item.item_id === null}">{{_('SAVE')}}</div>
+  </div>
+</div>

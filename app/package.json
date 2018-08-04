@@ -1,0 +1,27 @@
+{
+  "name": "mh4u-quest-editor",
+  "version": "1.0.0",
+  "description": "The ultimate MH4U Quest Editor",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "dasding",
+  "license": "MIT",
+  "window": {
+    "title": "MH4U Quest Editor by dasding",
+    "icon": "link.png",
+    "toolbar": true,
+    "show": false,
+    "frame": true,
+    "transparent": false,
+    "width": 860,
+    "height": 600,
+    "position": "center",
+    "min_width": 860,
+    "min_height": 400,
+    "resizable": true
+  },
+  "dom_storage_quota": 100,
+  "single-instance": true
+}

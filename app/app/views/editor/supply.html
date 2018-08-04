@@ -1,0 +1,135 @@
+<div class="ui small top attached tabular menu">
+  <a class="active item" data-tab="supplies">{{_('SUPPLYBOX')}}</a>
+  <a class="item" data-tab="refills">{{_('REFILLS')}}</a>
+</div>
+
+<div class="ui bottom attached active tab segment" data-tab="supplies">
+  <div class="ui grid two columns">
+
+    <div class="column" ng-repeat="box in quest.supplies">
+      <h4>
+        <span ng-show="$index === 0">{{_('INITIAL_SUPPLIES')}}</span>
+        <span ng-show="$index !== 0">
+          <i class="tiny close icon" style="cursor: pointer" ng-click="quest.supplies.splice($index, 1)"></i>
+        {{_('REFILL_SUPPLIES')}} {{$index}}
+        </span>
+        <div class="ui tiny compact blue button" ng-click="importSupplies($index)" style="font-size: 12px;padding: 8px;margin-left: 10px;">{{_('IMPORT')}}</div>
+        <div class="ui tiny compact teal button" ng-click="exportSupplies($index)" style="font-size: 12px;padding: 8px;margin-left: 10px;">{{_('EXPORT')}}</div>
+      </h4>
+      <table class="ui blue very compact striped table">
+       <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th>{{_('ITEM')}}</th>
+            <th>{{_('QUANTITY')}}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="(item_idx, item) in quest.supplies[$index]">
+            <td class="collapsing" ng-click="quest.supplies[$parent.$index].splice($index, 1)" style="cursor: pointer;">
+              <i class="close icon"></i>
+            </td>
+            <td class="collapsing">{{$index + 1}}</td>
+            <td>{{constants.items[item.item_id] | i18n }}</td>
+            <td>{{item.qty}}</td>
+            <td class="collapsing">
+              <div class="ui tiny compact button" ng-click="duplicate_supply_item($parent.$index,$index)">{{_('DUPLICATE')}}</div>
+              <div class="ui tiny compact button" ng-click="edit_supply_item($parent.$index,$index)"><i class="edit icon"></i>{{_('EDIT')}}</div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="5" style="text-align: center">
+              <div ng-show="quest.supplies[$index].length < 40" class="ui tiny circular green button" ng-click="quest.supplies[$index].push({item_id: 768, qty: 1})">
+                <i class="plus icon"></i>
+                {{_('ADD_ITEM')}}
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <div style="width: 100%; text-align: center; margin-top: 10px;" ng-show="quest.supplies.length < 5">
+    <div ng-click="quest.supplies.push([])" class="ui tiny compact button blue">{{_('ADD_SUPPLY_BOX')}}</div>
+  </div>
+
+
+</div>
+
+<div class="ui bottom attached tab segment" data-tab="refills">
+  <form class="ui small form" name="forms.refills" id="refillform">
+
+    <h4 class="ui dividing header">{{_('REFILL')}} 1</h4>
+    <div class="four fields">
+      <div class="field" ng-class="{'error': forms.refills.refillbox1_box.$invalid}">
+        <label>{{_('SUPPLYBOX')}}</label>
+        <select name="refillbox1_box" ng-model="quest.refills[0].box" ng-options="id | num as text | i18n for (id, text) in constants.refill_boxes" class="ui dropdown" required></select>
+      </div>
+      <div class="field" ng-class="{'error': forms.refills.refillbox1_cond.$invalid}">
+        <label>{{_('CONDITION')}}</label>
+        <select name="refillbox1_cond" ng-model="quest.refills[0].condition" ng-options="id | num as text | i18n for (id, text) in constants.refill_conditions" class="ui dropdown" required></select>
+      </div>
+      <div class="field" ng-show="quest.refills[0].condition == 2" ng-class="{'error': forms.refills.refillbox1_monster.$invalid}">
+        <label>{{_('MONSTER')}}</label>
+        <select name="refillbox1_monster" ng-model="quest.refills[0].monster" ng-options="id | num as text | i18n for (id, text) in constants.monsters_with_none" class="ui search dropdown" required></select>
+      </div>
+      <div class="field" ng-show="quest.refills[0].condition == 2" ng-class="{'error': forms.refills.refillbox1_qty.$invalid}">
+        <label>{{_('QUANTITY')}}</label>
+        <input type="number" name="refillbox1_qty" ng-model="quest.refills[0].qty"  required>
+      </div>
+    </div>
+
+    <h4 class="ui dividing header">{{_('REFILL')}} 2</h4>
+    <div class="four fields">
+      <div class="field" ng-class="{'error': forms.refills.refillbox2_box.$invalid}">
+        <label>{{_('SUPPLYBOX')}}</label>
+        <select name="refillbox2_box" ng-model="quest.refills[1].box" ng-options="id | num as text | i18n for (id, text) in constants.refill_boxes" class="ui dropdown" required></select>
+      </div>
+      <div class="field" ng-class="{'error': forms.refills.refillbox2_cond.$invalid}">
+        <label>{{_('CONDITION')}}</label>
+        <select name="refillbox2_cond" ng-model="quest.refills[1].condition" ng-options="id | num as text | i18n for (id, text) in constants.refill_conditions" class="ui dropdown" required></select>
+      </div>
+      <div class="field" ng-show="quest.refills[1].condition == 2" ng-class="{'error': forms.refills.refillbox2_monster.$invalid}">
+        <label>{{_('MONSTER')}}</label>
+        <select name="refillbox2_monster" ng-model="quest.refills[1].monster" ng-options="id | num as text | i18n for (id, text) in constants.monsters_with_none" class="ui search dropdown" required></select>
+      </div>
+      <div class="field" ng-show="quest.refills[1].condition == 2" ng-class="{'error': forms.refills.refillbox2_qty.$invalid}">
+        <label>{{_('QUANTITY')}}</label>
+        <input type="number" name="refillbox2_qty" ng-model="quest.refills[1].qty"  required>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div id="supplymodal" class="ui small modal">
+  <div class="content">
+    <form class="ui small form" name="supplyeditform">
+      <div class="fields">
+        <div class="ten wide field" ng-class="{'error': supplyeditform.item_id.$invalid}">
+          <label>{{_('ITEM')}}</label>
+          <div class="ui search" id="deliversearch">
+            <div class="ui icon input">
+              <input class="prompt" type="text" placeholder="Search Items..." select-on-click>
+              <i class="search icon"></i>
+            </div>
+            <div class="results"></div>
+          </div>
+        </div>
+        <div class="six wide field" ng-class="{'error': supplyeditform.qty.$invalid}">
+          <label>{{_('QUANTITY')}}</label>
+          <input name="qty" ng-model="$parent.current_edit_supply_item.qty" type="number" min="1" max="99" required>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+  <div class="actions">
+    <div class="ui cancel button">{{_('CANCEL')}}</div>
+    <div ng-click="save_edit_supply_item();" class="ui cancel blue button" ng-class="{'disabled': supplyeditform.$invalid || $parent.current_edit_supply_item.item_id === null}">{{_('SAVE')}}</div>
+  </div>
+</div>

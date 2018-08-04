@@ -1,0 +1,86 @@
+1,Rathian,---,---,Head,Wings,Back,---,---,Tail
+2,Rathalos,---,---,Head,Wings,Back,---,---,Tail
+3,Pink Rathian,---,---,Head,Wings,Back,---,---,Tail
+4,Azure Rathalos,---,---,Head,Wings,Back,---,---,Tail
+5,Gold Rathian,---,Head,Wings,Back,---,---,---,Tail
+6,Silver Rathalos,---,Head,Wings,Back,---,---,---,Tail
+7,Yian Kut-Ku,---,---,Ears,---,---,---,---,---
+8,Blue Yian Kut-Ku,---,---,Ears,---,---,---,---,---
+9,Gypceros,---,---,Horn,---,---,---,---,Tail
+10,Purple Gypceros,---,---,Horn,---,---,---,---,Tail
+11,Tigrex,---,---,Head,Claws,---,---,---,Tail
+12,Brute Tigrex,---,---,Head,Claws,---,---,---,Tail
+13,Gendrome,---,---,Head,---,---,---,---,---
+14,Iodrome,---,---,Head,---,---,---,---,---
+15,Great Jaggi,---,---,Head,---,---,---,---,---
+16,Velocidrome,---,---,Head,---,---,---,---,---
+17,Congalala,---,---,Comb,Claws,---,---,---,Tail
+18,Emerald Congalala,---,---,Comb,Claws,---,---,---,Tail
+19,Rajang,---,Horns,---,Tail,---,---,---,---
+20,Kecha Wacha,---,---,Ears,Claws,---,---,---,Tail
+21,Tetsucabra,---,---,Jaw,Back Legs,Back,---,---,---
+22,Zamtrios,---,---,Nosetip,Back Fin,Front Legs,Tail,---,---
+23,Najarala,---,---,Beak,Back Legs,Back,Tail,---,---
+24,Dalamadur (Head),Head,Breast,Back,Front Claws,---,---,---,---
+25,Seltas,---,---,Horn,---,---,---,---,---
+26,Seltas Queen,---,---,Head,Pectus,Legs,Tail,---,---
+27,Nerscylla,---,---,Claw,Back/Crystals,Hide,---,---,---
+28,Gore Magala,---,---,Feeler,Head,Wingbones/Claws,Wings,---,Tail
+29,Shagaru Magala,Horn,---,Wingbones/Claws,Wings,---,---,---,Tail
+30,Yian Garuga,---,---,Beak,Ears,Wings,Back,---,Tail
+31,Kushala Daora,Horn,Wings,---,---,---,---,---,Tail
+32,Teostra,Horn,Wings,---,---,---,---,---,Tail
+33,Akantor,Jaw,Back,Belly,Front Legs,---,---,---,Tail
+34,Kirin,Horn,---,---,---,---,---,---,---
+35,Oroshi Kirin,Horn,---,---,---,---,---,---,---
+36,Khezu,---,---,Head,Body,---,---,---,---
+37,Red Khezu,---,---,Head,Body,---,---,---,---
+38,Basarios,---,---,Back,Belly,---,---,---,Tail
+39,Ruby Basarios,---,---,Back,Belly,---,---,---,Tail
+40,Gravios,---,---,Head,Back,Belly,Wings,---,Tail
+41,Black Gravios,---,---,Head,Back,Belly,Wings,---,Tail
+42,Deviljho,---,---,Head,---,---,---,---,Tail
+43,Savage Deviljho,---,Head,---,---,---,---,---,Tail
+44,Brachydios,---,---,Head,Pounder,---,---,---,Tail
+45,Golden Rajang,---,Horns,---,---,---,---,---,---
+46,Dah'ren Mohran,Horn,Neckshield,Blowhole,Arms,---,---,---,---
+47,Lagombi,---,---,Ears,---,---,---,---,---
+48,Zinogre,---,---,Horns,Front Legs,Back,---,---,Tail
+49,Stygian Zinogre,---,---,Horns,Front Legs,Back,---,---,Tail
+77,Black Fatalis,Head,Eye,Wings,Breast,---,---,---,---
+78,Crimson Fatalis,Head,Eye,Wings,Breast,---,---,---,---
+79,White Fatalis,Head,Eye,Wings,Breast,---,---,---,---
+80,Molten Tigrex,---,Head,Claws,---,---,---,---,Tail
+82,Rusted Kushala Daora,Horn,Wings,---,---,---,---,---,Tail
+83,Dalamadur (Tail),---,---,---,---,---,---,---,Tail
+88,Seregios,---,---,Horn,Wings,Legs,---,---,Tail
+89,Gogmazios,Head,Wings,Breast,Dragonator,---,---,---,Tail
+90,Ash Kecha Wacha,---,---,Ears,Claws,Tail,---,---,---
+91,Berserk Tetsucabra,---,---,Jaw,Back Legs,Back,---,---,---
+92,Tigerstripe Zamtrios,---,---,Nosetip,Back Fin,Front Legs,Tail,---,---
+93,Tidal Najarala,---,---,Beak,Back Legs,Back,Tail,---,---
+94,Desert Seltas,---,---,Horn,---,---,---,---,---
+95,Desert Seltas Queen,---,---,Head,Pectus,Legs,Tail,---,---
+96,Shrouded Nerscylla,---,---,Claw,Back/Crystals,Hide,---,---,---
+97,Chaotic Gore Magala,---,---,Feeler,Wings,Shaggy Claw,Gore Claw,---,Tail
+98,Raging Brachydios,---,Horn,Pounder,---,---,---,---,Tail
+99,Diablos,---,---,Horns,Back,---,---,---,Tail
+100,Black Diablos,---,---,Horns,Back,---,---,---,Tail
+101,Monoblos,---,---,Horns,Back,---,---,---,Tail
+102,White Monoblos,---,---,Horns,Back,---,---,---,Tail
+103,Chameleos,Horn,Wings,---,---,---,---,---,Tail
+105,Cephadrome,---,---,Fin,Head,Tail,---,---,---
+107,Daimyo Hermitaur,---,---,Shell,Claws,---,---,---,---
+108,Plum Daimyo Hermitaur,---,---,Shell,Claws,---,---,---,---
+110,Shah Dalamadur (Head),Head,Breast,Back,Front Claws,---,---,---,---
+111,Shah Dalamadur (Tail),---,---,---,---,---,---,---,Tail
+112,Rajang (Apex),---,Horns,---,Tail,---,---,---,---
+113,Deviljho (Apex),---,Head,---,---,---,---,---,Tail
+114,Zinogre (Apex),---,---,Horns,Front Legs,Back,---,---,Tail
+115,Gravios (Apex),---,---,Head,Back,Belly,Wings,---,Tail
+116,Ukanlos,Jaw,Breast,Back,Front Legs,---,---,---,Tail
+117,Crimson Fatalis (Super),Head,Eye,Wings,Breast,---,---,---,---
+119,Diablos (Apex),---,---,Horns,Back,---,---,---,Tail
+120,Tidal Najarala (Apex),---,---,Beak,Back Legs,Back,Tail,---,---
+121,Tigrex (Apex),---,---,Head,Claws,---,---,---,Tail
+122,Seregios (Apex),---,---,Horn,Wings,Legs,---,---,Tail
